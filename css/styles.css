@@ -281,7 +281,7 @@ main { display: block; }
 /* ilustraciones: piezas comunes */
 .svg-accent { fill: var(--accent); font: 600 15px var(--font); }
 .logo-fill { fill: var(--accent); }
-.ring { fill: none; stroke: var(--accent); stroke-opacity: .22; stroke-width: 6; }
+.ring { fill: none; stroke: var(--accent); stroke-opacity: .22; stroke-width: 6; filter: blur(3px); }
 .ring--b { stroke-opacity: .12; stroke-width: 10; }
 .ring--c { stroke-opacity: .06; stroke-width: 14; }
 
@@ -334,6 +334,15 @@ main { display: block; }
 /* ---------------------------------------------------------------------
    3 · WHY WORK WITH US
    --------------------------------------------------------------------- */
+#porque::before {           /* columna tenue que sigue fuera de la losa (captura) */
+  content: "";
+  position: absolute; z-index: -1;
+  top: 0; bottom: 0;
+  left: calc(9.6875vw + 86.93vw * .545); width: 10vw;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, .03), transparent);
+  pointer-events: none;
+}
 .why-stage { position: absolute; left: 4%; width: 40%; top: 12%; bottom: 9%; }
 
 .why-logo {
@@ -393,9 +402,11 @@ main { display: block; }
 .why-glow {
   position: absolute;
   left: 44%; top: 50%;
-  width: 14cqw; height: 46cqw;
+  width: 21cqw; height: 58cqw;
   transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgba(0, 202, 113, .16), transparent);
+  background: linear-gradient(to right, transparent, rgba(0, 202, 113, .16) 50%, transparent);
+  -webkit-mask-image: linear-gradient(transparent, #000 25%, #000 75%, transparent);
+          mask-image: linear-gradient(transparent, #000 25%, #000 75%, transparent);
   transition: width .8s var(--ease), height .8s var(--ease), left .8s var(--ease);
   pointer-events: none;
 }
@@ -411,7 +422,7 @@ main { display: block; }
   padding: 1.75cqw 3cqw;
   border-radius: 1.3cqw;
   background: var(--piece);
-  border: 1px solid rgba(255, 255, 255, .05);
+  border: 1px solid rgba(0, 202, 113, .16);
   color: var(--text);
   box-shadow: 0 0 0 rgba(0, 202, 113, 0);
   transition: top .8s var(--ease), transform .8s var(--ease), font-size .6s var(--ease),
@@ -500,6 +511,7 @@ main { display: block; }
 /* ---------------------------------------------------------------------
    4 · SEE OUR WORK IN ACTION
    --------------------------------------------------------------------- */
+.orbits--work .arc { stroke-opacity: .5; stroke-width: 2; }
 .work {
   position: absolute;
   width: 14.4%;
@@ -546,7 +558,7 @@ main { display: block; }
   position: absolute;
   left: 0; right: 0; bottom: 0; top: 4.2cqw;
   border-radius: 1.6cqw;
-  border: 1px solid rgba(0, 202, 113, .14);
+  border: 1px solid rgba(0, 202, 113, .32);
   transition: border-color .6s;
 }
 .tst[data-role="center"] { cursor: default; z-index: 2; }
@@ -582,29 +594,51 @@ main { display: block; }
 .tst-name { font-style: italic; font-weight: 900; font-size: max(9px, .8cqw); }
 .tst-role { font-size: max(8px, .7cqw); color: var(--dim); }
 
-.tst-cta { position: absolute; left: 50%; top: 89.5%; transform: translate(-50%, -50%); }
-.tst-cta .cta-glow { width: 26cqw; height: 14cqw; }
+#testimonios::after {      /* franja verde que une con el formulario */
+  content: "";
+  position: absolute; z-index: -1;
+  left: 0; right: 0; bottom: 0; height: 16%;
+  background:
+    radial-gradient(60% 120% at 92% 100%, rgba(0, 202, 113, .16), transparent 70%),
+    linear-gradient(to bottom, transparent, rgba(0, 99, 55, .16));
+  pointer-events: none;
+}
+.slab--testimonials::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0, 99, 55, .1), transparent 24%);
+  pointer-events: none;
+}
+.tst-cta { position: absolute; z-index: 1; left: 50%; top: 89.5%; transform: translate(-50%, -50%); }
+.tst-cta .cta-glow { width: 20cqw; height: 9cqw; opacity: .7; }
 
 /* ---------------------------------------------------------------------
    6 · LET'S MAKE IT REAL — formulario
    --------------------------------------------------------------------- */
-.section--last::before {   /* resplandor verde del fondo de página (captura) */
+.section--last::before {   /* fondo de página del formulario: verde arriba-der. y abajo-izq. */
   content: "";
   position: absolute;
   z-index: -1;
-  left: -40px; right: -40px; top: -30%; bottom: -48px;
+  inset: 0;
   background:
-    radial-gradient(40% 45% at 80% 25%, rgba(0, 99, 55, .38), transparent 70%),
-    radial-gradient(45% 40% at 10% 90%, rgba(0, 99, 55, .32), transparent 70%);
+    radial-gradient(42% 55% at 100% 0%, rgba(0, 202, 113, .2), transparent 72%),
+    radial-gradient(38% 60% at 0% 100%, rgba(0, 202, 113, .22), transparent 72%),
+    linear-gradient(to bottom, rgba(0, 99, 55, .12), transparent 9%);
   pointer-events: none;
 }
-.slab--form { background: rgba(11, 11, 11, .92); }
-.form-ambient { position: absolute; inset: 0; pointer-events: none; }
-.form-ambient i { position: absolute; border-radius: 50%; filter: blur(4cqw); background: var(--accent-dark); opacity: .22; }
-.form-ambient i:nth-child(1) { left: 6%; top: 62%; width: 16cqw; height: 16cqw; }
-.form-ambient i:nth-child(2) { left: 52%; top: 24%; width: 8cqw; height: 6cqw; opacity: .35; }
-.form-ambient i:nth-child(3) { left: 66%; top: -8%; width: 22cqw; height: 10cqw; opacity: .14; }
-.form-ambient i:nth-child(4) { left: 30%; top: 80%; width: 18cqw; height: 10cqw; opacity: .12; }
+/* la losa del formulario es translúcida: deja pasar el verde de la página */
+.slab--form { background: rgba(12, 12, 12, .84); }
+.form-dash {
+  position: absolute; inset: -3%;
+  width: 106%; height: 106%;
+  filter: blur(max(7px, 1.05cqw));
+  pointer-events: none;
+}
+.form-dash .d  { fill: rgba(255, 255, 255, .07); }
+.form-dash .d2 { fill: rgba(255, 255, 255, .045); }
+.form-dash .g  { fill: rgba(0, 202, 113, .38); }
+.form-dash .ga { fill: rgba(0, 202, 113, .07); }
+.form-dash .ring-g { fill: none; stroke: rgba(0, 202, 113, .13); stroke-width: 34; }
 
 .form-title {
   position: absolute; left: 14%; top: 46.6%;
@@ -719,7 +753,8 @@ main { display: block; }
   .why-side .pill { position: static; transform: none; order: 3; align-self: center; margin-top: 18px; }
 
   /* Work */
-  .section--last::before { left: -14px; right: -14px; }
+  .section--last::before { inset: -14px; }
+  #porque::before, #testimonios::after { display: none; }
   .slab--work { aspect-ratio: 3 / 5.4; }
   .work { width: 29%; border-radius: 8px; }
   .work .slot { border-radius: 8px 8px 0 0; }
