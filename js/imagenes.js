@@ -13,7 +13,8 @@
    ===================================================================== */
 window.WBU_IMAGES = {
 
-  // 1 · Hero — fondo de la losa (captura: dashboard desenfocado)
+  // 1 · Hero — OPCIONAL. Sin src se ve el dashboard desenfocado dibujado en
+  //     SVG (index.html, .hero-dash). Con src, la imagen lo tapa.
   'hero-bg':      { src: '', w: 2480, h: 1400, alt: '' },
 
   // 4 · See Our Work in Action — publicaciones (cuadradas, formato post)

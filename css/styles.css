@@ -166,7 +166,24 @@ main { display: block; }
 /* ---------------------------------------------------------------------
    1 · HERO
    --------------------------------------------------------------------- */
-.hero-shade { position: absolute; inset: 0; background: rgba(0, 0, 0, .72); }
+.hero-dash {
+  position: absolute; inset: -2%;
+  width: 104%; height: 104%;
+  filter: blur(max(5px, .55cqw));
+  opacity: .9;
+}
+.hero-dash .d  { fill: rgba(255, 255, 255, .13); }
+.hero-dash .d2 { fill: rgba(255, 255, 255, .07); }
+.hero-dash .dg { fill: rgba(0, 202, 113, .22); }
+.hero-dash .g  { fill: rgba(0, 202, 113, .42); }
+.hero-dash .gb { fill: rgba(0, 202, 113, .4); }
+.hero-dash .panel { fill: rgba(255, 255, 255, .045); }
+.hero-dash .card  { fill: rgba(255, 255, 255, .05); }
+/* oscurece el centro para que el titular pegue (como en la captura) */
+.hero-shade {
+  position: absolute; inset: 0;
+  background: radial-gradient(48% 52% at 50% 50%, rgba(11, 11, 11, .78), rgba(11, 11, 11, .35) 75%, rgba(11, 11, 11, .2));
+}
 .hero-content { position: absolute; inset: 0; text-align: center; }
 .hero-title {
   position: absolute; left: 0; right: 0; top: 51%;

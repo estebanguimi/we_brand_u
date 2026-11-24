@@ -49,6 +49,8 @@
     const name = slot.dataset.slot;
     const cfg = IMAGES[name];
     if (!cfg) return;
+    // hero-bg sin imagen: se ve el fondo dibujado en SVG, sin placeholder
+    if (name === 'hero-bg' && !cfg.src) return;
     if (!slot.classList.contains('slot--cover')) slot.style.aspectRatio = `${cfg.w} / ${cfg.h}`;
     if (cfg.src) {
       const img = new Image();
