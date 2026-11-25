@@ -288,6 +288,7 @@ html.has-subrail .rail { --w: var(--rail-w-compact); --l: var(--link-compact); p
   transition: opacity var(--dur-2) var(--ease), transform var(--dur-2) var(--ease);
 }
 .subrail[hidden] { display: none; }
+.subrail:not(.is-in) { pointer-events: none; }
 html.has-subrail .subrail.is-in { opacity: 1; transform: translate(0, -50%); transition-delay: .15s; }
 .subrail .rail-link { width: var(--link-compact); height: var(--link-compact); justify-content: center; }
 .subrail .rail-link .rail-ico { margin: 0; }

@@ -105,7 +105,17 @@
       a.classList.toggle('is-active', on);
       if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
     });
+    showSubrail(!(IS_HOME && id === sectionViews[0].id));
     placeGlow();
+  }
+  // Home: en la primera vista (Hero) hay un solo menú, el principal.
+  // Desde la segunda vista, el principal se compacta y entra el de secciones.
+  const IS_HOME = document.body.hasAttribute('data-paged');
+  let subrailReady = false;
+  function showSubrail(on) {
+    if (!subrailReady) return;
+    docEl0.classList.toggle('has-subrail', on);
+    subrail.classList.toggle('is-in', on);
   }
 
   if (subrail && sectionViews.length >= 2) {
@@ -113,8 +123,9 @@
     subrail.hidden = false;
     // el principal se compacta y el de secciones entra deslizándose
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      docEl0.classList.add('has-subrail');
-      subrail.classList.add('is-in');
+      subrailReady = true;
+      const active = $('.rail-link.is-active', subrail);
+      showSubrail(!(IS_HOME && (!active || active.dataset.target === sectionViews[0].id)));
     }));
     setRail(sectionViews[0].id);
     addEventListener('resize', placeGlow);
