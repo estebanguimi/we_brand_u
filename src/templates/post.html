@@ -9,12 +9,15 @@
      El cuerpo usa el escalón de 20 px (--fs-ui), misma familia y peso.
      ============================================================ -->
 <section class="block" data-label="Overview" data-icon="p-blog">
-  <div class="slab slab--flow page-hero page-hero--text">
+  <div class="slab slab--flow page-hero">
     {{> orbits-page}}
     <div class="page-hero-text">
       <a href="{{base}}blog/" class="k">Blog</a>
       <h1 class="page-title">{{item.title}}</h1>
       <p class="prose-meta">{{item.date}}</p>
+    </div>
+    <div class="page-hero-art">
+      <div class="ill-stage" data-play-on-view aria-hidden="true">{{> ill-article}}</div>
     </div>
   </div>
 </section>

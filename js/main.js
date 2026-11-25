@@ -204,6 +204,17 @@
       play($('.ill-tech', svcRow));
       play($('.ill-growth', svcRow));
     });
+
+    // Hub /servicios: al entrar, las tarjetas se expanden solas una por una
+    // (demostración) hasta que la persona las toca.
+    if (svcRow.dataset.links === 'true' && !reduced()) {
+      const demo = ['brand', 'tech', 'growth', null];
+      const timers = demo.map((k, n) => setTimeout(() => setSvc(k), 900 + n * 1700));
+      const stop = () => timers.forEach(clearTimeout);
+      svcRow.addEventListener('pointerdown', stop, { once: true });
+      svcRow.addEventListener('mousemove', stop, { once: true });
+      svcRow.addEventListener('focusin', stop, { once: true });
+    }
   }
 
   /* -------------------------------------------------------------------

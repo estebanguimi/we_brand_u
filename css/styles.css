@@ -1207,6 +1207,87 @@ a.work--grid:hover, a.work--grid:focus-visible { border-color: var(--line-strong
 .wizard-step:not([hidden]) { animation: stepIn var(--dur-2) var(--ease-out); }
 @keyframes stepIn { from { opacity: 0; transform: translateX(14px); } }
 
+/* =====================================================================
+   PORTADAS DE PÁGINAS INTERNAS — se animan desde el segundo 0
+   ===================================================================== */
+.page-inner main > .block:first-of-type > .slab::after {      /* barrido de luz al entrar */
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(0, 202, 113, .14) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: heroSweep var(--dur-long) var(--ease-page) .15s forwards;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes heroSweep { to { transform: translateX(100%); } }
+.page-inner main > .block:first-of-type .orbits {             /* los arcos llegan girando */
+  transform-origin: 75% 50%;
+  animation: orbitsIn var(--dur-long) var(--ease-page) both;
+}
+@keyframes orbitsIn { from { opacity: 0; transform: scale(.82) rotate(-28deg); } }
+/* texto en cascada: rótulo, título (se descubre de abajo), bajada, botón */
+.page-inner main > .block:first-of-type :is(.page-hero-text, .page-head) > * {
+  animation: heroUp var(--dur-3) var(--ease-out) both;
+}
+.page-inner main > .block:first-of-type :is(.page-hero-text, .page-head) > :nth-child(1) { animation-delay: .15s; }
+.page-inner main > .block:first-of-type :is(.page-hero-text, .page-head) > :nth-child(2) { animation-delay: .27s; }
+.page-inner main > .block:first-of-type :is(.page-hero-text, .page-head) > :nth-child(3) { animation-delay: .45s; }
+.page-inner main > .block:first-of-type :is(.page-hero-text, .page-head) > :nth-child(4) { animation-delay: .57s; }
+.page-inner main > .block:first-of-type :is(.page-hero-text, .page-head) > :nth-child(5) { animation-delay: .69s; }
+.page-inner main > .block:first-of-type .page-title { animation-name: heroTitle; animation-duration: 1.1s; }
+@keyframes heroUp { from { opacity: 0; transform: translateY(26px); } }
+@keyframes heroTitle { from { opacity: 0; transform: translateY(40%); clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 -20% 0); } }
+.page-inner main > .block:first-of-type :is(.page-hero-art, .ootb-art) { animation: artIn 1.2s var(--ease-out) .3s both; }
+@keyframes artIn { from { opacity: 0; transform: scale(.9); } }
+/* hub de servicios: título y tarjetas entran en cascada */
+.page-inner main > .block:first-of-type .slab--frame > .title { animation: heroUp var(--dur-3) var(--ease-out) .15s both; }
+.page-inner main > .block:first-of-type .svc { animation: heroUp var(--dur-3) var(--ease-out) both; }
+.page-inner main > .block:first-of-type .svc:nth-child(1) { animation-delay: .35s; }
+.page-inner main > .block:first-of-type .svc:nth-child(2) { animation-delay: .47s; }
+.page-inner main > .block:first-of-type .svc:nth-child(3) { animation-delay: .59s; }
+.page-hero-text, .page-hero-art, .ootb-art { position: relative; z-index: 1; }
+
+/* --- Trabajo: piezas en abanico que flotan ----------------------------- */
+.wc { transform: translate(var(--x), var(--y)) rotate(var(--r)); }
+.wc-in { animation: wcFloat 5s ease-in-out infinite alternate; animation-delay: calc(var(--k) * -1.6s); }
+.wc-card { fill: var(--card); stroke: var(--line); stroke-width: 1.5; }
+.wc-card--front { stroke: var(--line-strong); }
+.wc-img { fill: var(--piece); }
+.wc-mount { fill: var(--accent-dark); }
+.wc-sun, .wc-bar--on, .wc-dot--on { fill: var(--accent); }
+.wc-bar { fill: var(--gray-dot); }
+.wc-dot { fill: var(--gray-dot); }
+.wc-pill { fill: none; stroke: var(--pill-line); }
+.js .ill-work .wc { opacity: 0; transform: translate(200px, 210px) rotate(0deg) scale(.85); }
+.js .ill-work.play .wc { animation: wcFan var(--dur-3) var(--ease-out) forwards; animation-delay: calc(.35s + var(--k) * .15s); }
+@keyframes wcFan { to { opacity: 1; transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(1); } }
+@keyframes wcFloat { from { transform: translateY(-6px); } to { transform: translateY(6px); } }
+
+/* --- Out of the Box: ecualizador de ondas ------------------------------- */
+.slab--tall:has(.ootb-art) { grid-template-columns: 1fr 1fr; align-items: center; }
+.ootb-art { max-width: none; }
+.eq { fill: var(--accent); transform-box: fill-box; transform-origin: center; animation: eq var(--d) ease-in-out infinite alternate; animation-delay: calc(var(--k) * -.13s); }
+.eq-mark { stroke: var(--line-strong); stroke-dasharray: 6 6; }
+@keyframes eq { from { transform: scaleY(.25); opacity: .55; } to { transform: scaleY(1); opacity: 1; } }
+.js .ill-wave .eq { transform: scaleY(0); }
+.js .ill-wave.play .eq { animation: eqIn var(--dur-3) var(--ease-out) both, eq var(--d) ease-in-out infinite alternate;
+  animation-delay: calc(.3s + var(--k) * .03s), calc(1.2s + var(--k) * -.13s); }
+@keyframes eqIn { from { transform: scaleY(0); } }
+
+/* --- Blog: un artículo que se escribe ---------------------------------- */
+.art-line { fill: var(--gray-dot); }
+.art-line--title, .art-quote { fill: var(--accent); }
+.art-line--meta { fill: var(--gray-icon-hover); }
+.art-line--q { fill: var(--body); }
+.art-cursor { fill: var(--accent); animation: blink 1s steps(1, end) infinite; }
+.art-page { animation: wcFloat 5s ease-in-out infinite alternate; }
+@keyframes blink { 50% { opacity: 0; } }
+.js .ill-article .art-line, .js .ill-article .art-quote { clip-path: inset(0 100% 0 0); }
+.js .ill-article.play .art-line, .js .ill-article.play .art-quote { animation: measure .55s var(--ease-out) forwards; animation-delay: calc(.4s + var(--k) * .22s); }
+
+/* --- Contacto: sliders de la evaluación bajo el título ----------------- */
+.contact-art { max-width: 30cqw; margin-top: var(--sp-3); }
+
 /* --- Footer ------------------------------------------------------------- */
 .site-footer {
   position: relative;
@@ -1424,6 +1505,8 @@ html.paged .site-footer { padding-top: var(--sp-6); }
   .card-more { grid-template-rows: 1fr; opacity: 1; }
   .shout { grid-template-columns: 1fr; }
   .shout-meter { height: 200px; }
+  .slab--tall:has(.ootb-art) { grid-template-columns: 1fr; }
+  .contact-art { max-width: 280px; }
   .footer-cols { grid-template-columns: 1fr 1fr; }
 }
 
