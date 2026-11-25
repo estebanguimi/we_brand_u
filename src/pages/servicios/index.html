@@ -1,0 +1,22 @@
+<!--page {"path": "servicios/", "title": "Services", "description": "Branding & Marketing, Tech & Automation and Business Growth & Optimization: the three We Brand U services to solve your business challenges with strategy, creativity, and technology.", "nav": "servicios"} -->
+
+<!-- ============================================================
+     /servicios — Hub. Mismo componente e interacción que el home:
+     la tarjeta se expande (hover / tap) y lleva a su página.
+     ============================================================ -->
+<section class="block">
+  <div class="slab slab--services slab--frame">
+    <h1 class="title title--center">We solve your business challenges with<br class="br-desk"> strategy, creativity, and technology</h1>
+    {{> service-cards}}
+  </div>
+</section>
+
+<section class="block">
+  <nav class="pill-row pill-row--center" aria-label="Services">
+    <a href="{{base}}servicios/branding-marketing/" class="pill">Branding &amp; Marketing</a>
+    <a href="{{base}}servicios/tech-automation/" class="pill">Tech &amp; Automation</a>
+    <a href="{{base}}servicios/business-growth/" class="pill">Business Growth &amp; Optimization</a>
+  </nav>
+</section>
+
+{{> cta}}

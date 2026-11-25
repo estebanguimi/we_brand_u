@@ -54,7 +54,7 @@
     if (!slot.classList.contains('slot--cover')) slot.style.aspectRatio = `${cfg.w} / ${cfg.h}`;
     if (cfg.src) {
       const img = new Image();
-      img.src = cfg.src;
+      img.src = /^(https?:)?\/\//.test(cfg.src) ? cfg.src : (window.WBU_BASE || '') + cfg.src;
       img.alt = cfg.alt || '';
       img.width = cfg.w;
       img.height = cfg.h;
@@ -70,28 +70,28 @@
   });
 
   /* -------------------------------------------------------------------
-     Rail: sección activa + resplandor
+     Rail: navegación del sitio. La página activa la marca build.mjs
+     (clase .is-active). Acá: resplandor detrás del ícono activo y el
+     menú "más" de la barra inferior en mobile.
      ------------------------------------------------------------------- */
   const rail = $('.rail');
-  const links = $$('.rail-link');
-  function setRail(id) {
-    links.forEach((a) => {
-      const on = a.dataset.target === id;
-      a.classList.toggle('is-active', on);
-      if (on) {
-        a.setAttribute('aria-current', 'true');
-        rail.style.setProperty('--gy', `${a.offsetTop + a.offsetHeight / 2}px`);
-      } else {
-        a.removeAttribute('aria-current');
-      }
-    });
-  }
-  setRail('hero');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) setRail(e.target.id); });
-    }, { rootMargin: '-45% 0px -45% 0px' });
-    $$('[data-section]').forEach((s) => io.observe(s));
+  if (rail) {
+    const placeGlow = () => {
+      const a = $('.rail > .rail-link.is-active', rail);
+      if (a) rail.style.setProperty('--gy', `${a.offsetTop + a.offsetHeight / 2}px`);
+    };
+    placeGlow();
+    addEventListener('resize', placeGlow);
+
+    const more = $('.rail-more', rail);
+    const sheet = $('.rail-sheet', rail);
+    const setSheet = (open) => {
+      sheet.hidden = !open;
+      more.setAttribute('aria-expanded', String(open));
+    };
+    more.addEventListener('click', () => setSheet(sheet.hidden));
+    document.addEventListener('click', (e) => { if (!sheet.hidden && !rail.contains(e.target)) setSheet(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !sheet.hidden) { setSheet(false); more.focus(); } });
   }
 
   /* -------------------------------------------------------------------
@@ -123,9 +123,12 @@
       card.addEventListener('mousemove', () => {
         if (canHover() && !lock.on()) setSvc(key);
       });
-      card.addEventListener('click', () => {
-        if (canHover()) setSvc(key);
-        else setSvc(current === key ? null : key);     // tap
+      card.addEventListener('click', (e) => {
+        const isLink = card.tagName === 'A';
+        if (canHover()) { if (!isLink) setSvc(key); return; }
+        if (isLink && current === key) return;         // segundo tap: navega
+        if (isLink) e.preventDefault();
+        setSvc(current === key ? null : key);          // tap
       });
       card.addEventListener('focus', () => { if (card.matches(':focus-visible')) setSvc(key); });
     });
@@ -281,6 +284,7 @@
      En mobile (≤ 760px) el scroll es el normal.
      ------------------------------------------------------------------- */
   const deskMQ = matchMedia('(min-width: 761px)');
+  const PAGED_SITE = document.body.hasAttribute('data-paged');
   const docEl = document.documentElement;
   const mainEl = $('main');
   const views = $$('[data-section]');
@@ -290,7 +294,7 @@
   let pageLock = false;
   let lastInput = 0;
 
-  views.forEach((v) => v.setAttribute('tabindex', '-1'));
+  if (PAGED_SITE) views.forEach((v) => v.setAttribute('tabindex', '-1'));
   const indexOf = (id) => views.findIndex((v) => v.id === id);
   const nearestByScroll = () => {
     let best = 0;
@@ -301,8 +305,9 @@
   };
 
   function applyPage() {
-    mainEl.style.setProperty('--page', page);
-    setRail(views[page].id);
+    // la última vista (footer) es más corta: se alinea al final de la página
+    const y = Math.max(0, Math.min(views[page].offsetTop, mainEl.offsetHeight - innerHeight));
+    mainEl.style.setProperty('--page-y', y);
   }
   // se libera cuando terminó la transición y el gesto dejó de mandar eventos
   // (el trackpad sigue emitiendo por inercia: así un gesto no salta dos vistas)
@@ -330,7 +335,7 @@
     } else {
       paged = false;
       docEl.classList.remove('paged');
-      mainEl.style.removeProperty('--page');
+      mainEl.style.removeProperty('--page-y');
       views[page].scrollIntoView({ block: 'start' });
     }
   }
@@ -381,7 +386,7 @@
     e.preventDefault();
     if (paged) goToPage(i);
     else views[i].scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
-    views[i].focus({ preventScroll: true });   // Tab sigue dentro de la vista elegida
+    if (PAGED_SITE) views[i].focus({ preventScroll: true });   // Tab sigue dentro de la vista elegida
   });
 
   // tabular a un campo de otra vista lleva a esa vista
@@ -394,12 +399,94 @@
   window.addEventListener('scroll', () => { if (paged && scrollY !== 0) window.scrollTo(0, 0); });
 
   // inicio (respeta un #ancla en la URL)
-  setPaged(deskMQ.matches);
+  setPaged(PAGED_SITE && deskMQ.matches);
   if (paged && location.hash) {
     const i = indexOf(location.hash.slice(1));
     if (i > 0) { page = i; applyPage(); }
   }
-  deskMQ.addEventListener('change', (e) => setPaged(e.matches));
+  deskMQ.addEventListener('change', (e) => setPaged(PAGED_SITE && e.matches));
+  addEventListener('resize', () => { if (paged) applyPage(); });
+
+  /* -------------------------------------------------------------------
+     Ilustraciones de servicio fuera del home (hero de cada servicio):
+     mismo código; se expanden y animan una vez al entrar en vista.
+     ------------------------------------------------------------------- */
+  $$('[data-play-on-view]').forEach((stage) => {
+    onceInView(stage, () => {
+      stage.classList.add('is-active');
+      play($('.ill', stage));
+    });
+  });
+
+  /* Timeline: el arco se dibuja y los hitos se encienden al entrar en vista */
+  $$('.timeline').forEach((tl) => onceInView(tl, () => tl.classList.add('play'), 0.3));
+
+  /* -------------------------------------------------------------------
+     Preguntas frecuentes (acordeón)
+     ------------------------------------------------------------------- */
+  $$('.faq-item').forEach((item) => {
+    const q = $('.faq-q', item);
+    q.addEventListener('click', () => {
+      const open = !item.classList.contains('is-open');
+      item.classList.toggle('is-open', open);
+      q.setAttribute('aria-expanded', String(open));
+    });
+  });
+
+  /* -------------------------------------------------------------------
+     Evaluación gratuita: formulario multipaso (/contacto)
+     Una pregunta por pantalla; valida antes de avanzar.
+     ------------------------------------------------------------------- */
+  const wizard = $('.wizard');
+  if (wizard) {
+    const steps = $$('.wizard-step', wizard);
+    const bar = $('.progress > span', wizard);
+    const count = $('[data-step-count]', wizard);
+    const err = $('.wizard-error', wizard);
+    const back = $('[data-back]', wizard);
+    const next = $('[data-next]', wizard);
+    const done = $('.wizard-done', wizard.parentElement);
+    let i = 0;
+
+    const show = (n) => {
+      i = n;
+      steps.forEach((s, k) => { s.hidden = k !== i; });
+      bar.style.setProperty('--p', (i + 1) / steps.length);
+      count.textContent = `${i + 1} / ${steps.length}`;
+      back.hidden = i === 0;
+      next.textContent = i === steps.length - 1 ? next.dataset.last : next.dataset.label;
+      err.textContent = '';
+      const first = $('input, textarea', steps[i]);
+      if (first && wizard.dataset.started) first.focus({ preventScroll: true });
+    };
+    const valid = () => {
+      const s = steps[i];
+      if (s.dataset.need === 'one' && !$('input:checked', s)) return s.dataset.error;
+      for (const input of $$('input[required]', s)) {
+        const bad = !input.value.trim() || (input.type === 'email' && !/^\S+@\S+\.\S+$/.test(input.value));
+        input.classList.toggle('is-invalid', bad);
+        if (bad) { input.focus(); return s.dataset.error; }
+      }
+      return '';
+    };
+    back.addEventListener('click', () => { wizard.dataset.started = '1'; show(i - 1); });
+    wizard.addEventListener('submit', (e) => {
+      e.preventDefault();
+      wizard.dataset.started = '1';
+      const msg = valid();
+      if (msg) { err.textContent = msg; return; }
+      if (i < steps.length - 1) { show(i + 1); return; }
+      const fd = new FormData(wizard);
+      const data = Object.fromEntries(fd);
+      data.need = fd.getAll('need');
+      // TODO: conectar el envío (endpoint / servicio de formularios) — pendiente de definir.
+      wizard.dispatchEvent(new CustomEvent('wbu:submit', { detail: data, bubbles: true }));
+      wizard.hidden = true;
+      if (done) done.hidden = false;
+    });
+    wizard.addEventListener('input', (e) => e.target.classList && e.target.classList.remove('is-invalid'));
+    show(0);
+  }
 
   /* -------------------------------------------------------------------
      6 · Formulario

@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "branding-marketing",
+    "key": "brand",
+    "name": "Branding &amp; Marketing",
+    "titleHtml": "Branding &amp;<br>Marketing",
+    "description": "Branding & Marketing by We Brand U: one of our three services to solve your business challenges with strategy, creativity, and technology."
+  },
+  {
+    "slug": "tech-automation",
+    "key": "tech",
+    "name": "Tech &amp; Automation",
+    "titleHtml": "Tech &amp;<br>Automation",
+    "description": "Tech & Automation by We Brand U: one of our three services to solve your business challenges with strategy, creativity, and technology."
+  },
+  {
+    "slug": "business-growth",
+    "key": "growth",
+    "name": "Business Growth &amp; Optimization",
+    "titleHtml": "Business Growth<br>&amp; Optimization",
+    "description": "Business Growth & Optimization by We Brand U: one of our three services to solve your business challenges with strategy, creativity, and technology."
+  }
+]

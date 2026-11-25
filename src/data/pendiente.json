@@ -1,0 +1,8 @@
+[
+  { "path": "out-of-the-box/", "title": "Out of the Box", "nav": "out-of-the-box", "fase": "Fase 2" },
+  { "path": "trabajo/",        "title": "Our Work",       "nav": "trabajo",        "fase": "Fase 2" },
+  { "path": "nosotros/",       "title": "About Us",       "nav": "nosotros",       "fase": "Fase 2" },
+  { "path": "blog/",           "title": "Blog",           "nav": "blog",           "fase": "Fase 3" },
+  { "path": "privacidad/",     "title": "Privacy",        "nav": "",               "fase": "Fase 3" },
+  { "path": "terminos/",       "title": "Terms",          "nav": "",               "fase": "Fase 3" }
+]

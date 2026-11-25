@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://estebanguimi.github.io/we_brand_u/sitemap.xml

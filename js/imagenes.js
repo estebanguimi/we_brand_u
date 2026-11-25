@@ -28,4 +28,9 @@ window.WBU_IMAGES = {
   'testimonio-1': { src: '', w: 480, h: 480, alt: 'Alejandro Torres' },
   'testimonio-2': { src: '', w: 480, h: 480, alt: 'Sofía Ramírez' },
   'testimonio-3': { src: '', w: 480, h: 480, alt: 'Mariana López' },
+
+  // Open Graph — la imagen que aparece al compartir cualquier página.
+  // Sin src, build.mjs usa img/placeholders/og-default.png (placeholder).
+  // Ruta relativa a la raíz del sitio, p. ej. 'img/og.jpg'.
+  'og-default':   { src: '', w: 1200, h: 630, alt: 'We Brand U' },
 };

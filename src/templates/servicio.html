@@ -1,0 +1,105 @@
+<!--page {"path": "servicios/{{item.slug}}/", "title": "{{item.name}}", "description": "{{item.description}}", "nav": "servicios"} -->
+
+<!-- ============================================================
+     Plantilla única de servicio. Genera las 3 páginas desde
+     src/data/servicio.json. La ilustración es la MISMA del home.
+     ============================================================ -->
+
+<!-- 1 · Hero interno: la ilustración del servicio domina -->
+<section class="block">
+  <div class="slab slab--flow page-hero">
+    {{> orbits-page}}
+    <div class="page-hero-text">
+      <a href="{{base}}servicios/" class="k">Services</a>
+      <h1 class="page-title">{{item.titleHtml}}</h1>
+      <p class="lead pending">[FALTA CONTENIDO: una línea — qué resuelve {{item.name}} y para quién]</p>
+      <a href="{{base}}contacto/" class="pill">Get Your Free Evaluation</a>
+    </div>
+    <div class="page-hero-art">
+      <div class="ill-stage" data-play-on-view aria-hidden="true">
+        {{> ill-{{item.key}}}}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · Qué resuelve: el problema del cliente -->
+<section class="block">
+  <div class="slab slab--flow">
+    <div class="block-head">
+      <h2 class="title">What it solves</h2>
+    </div>
+    <p class="text pending">[FALTA CONTENIDO: el problema del cliente que resuelve {{item.name}} — no la lista de tareas]</p>
+  </div>
+</section>
+
+<!-- 3 · Qué incluye: entregables concretos -->
+<section class="block">
+  <div class="slab slab--flow">
+    <div class="block-head">
+      <h2 class="title">What’s included</h2>
+    </div>
+    <div class="cards" style="--cols: 3">
+      <article class="card"><h3 class="card-title pending">[FALTA CONTENIDO: entregable 1]</h3><p class="card-text pending">[FALTA CONTENIDO: qué es, en una línea]</p></article>
+      <article class="card"><h3 class="card-title pending">[FALTA CONTENIDO: entregable 2]</h3><p class="card-text pending">[FALTA CONTENIDO: qué es, en una línea]</p></article>
+      <article class="card"><h3 class="card-title pending">[FALTA CONTENIDO: entregable 3]</h3><p class="card-text pending">[FALTA CONTENIDO: qué es, en una línea]</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Cómo trabajamos: 4 pasos (mismo timeline que /programa) -->
+<section class="block">
+  <div class="slab slab--flow">
+    <div class="block-head">
+      <h2 class="title">How we work</h2>
+    </div>
+    <div class="timeline" style="--n: 4">
+      <div class="timeline-track" aria-hidden="true">
+        <svg viewBox="0 0 1000 120" preserveAspectRatio="none">
+          <path d="M0 100Q500 -60 1000 100" class="timeline-path timeline-path--ghost"/>
+          <path d="M0 100Q500 -60 1000 100" pathLength="1" class="timeline-path draw"/>
+        </svg>
+        <span class="timeline-node" style="--x: 12.5%; --y: 54.2%; --n-i: 1"></span>
+        <span class="timeline-node" style="--x: 37.5%; --y: 20.8%; --n-i: 2"></span>
+        <span class="timeline-node" style="--x: 62.5%; --y: 20.8%; --n-i: 3"></span>
+        <span class="timeline-node" style="--x: 87.5%; --y: 54.2%; --n-i: 4"></span>
+      </div>
+      <ol class="timeline-steps" role="list">
+        <li class="card"><span class="k">Step 1</span><h3 class="card-title pending">[FALTA CONTENIDO: paso 1]</h3><p class="card-text pending">[FALTA CONTENIDO]</p></li>
+        <li class="card"><span class="k">Step 2</span><h3 class="card-title pending">[FALTA CONTENIDO: paso 2]</h3><p class="card-text pending">[FALTA CONTENIDO]</p></li>
+        <li class="card"><span class="k">Step 3</span><h3 class="card-title pending">[FALTA CONTENIDO: paso 3]</h3><p class="card-text pending">[FALTA CONTENIDO]</p></li>
+        <li class="card"><span class="k">Step 4</span><h3 class="card-title pending">[FALTA CONTENIDO: paso 4]</h3><p class="card-text pending">[FALTA CONTENIDO]</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Para quién es y para quién no -->
+<section class="block">
+  <div class="slab slab--flow">
+    <div class="block-head">
+      <h2 class="title">Who it’s for</h2>
+    </div>
+    <div class="cards" style="--cols: 2">
+      <article class="card card--strong">
+        <h3 class="card-title">It’s a fit if…</h3>
+        <ul class="card-list">
+          <li class="pending">[FALTA CONTENIDO: perfil de cliente ideal 1]</li>
+          <li class="pending">[FALTA CONTENIDO: perfil de cliente ideal 2]</li>
+          <li class="pending">[FALTA CONTENIDO: perfil de cliente ideal 3]</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3 class="card-title">It’s not a fit if…</h3>
+        <ul class="card-list">
+          <li class="pending">[FALTA CONTENIDO: para quién no es 1]</li>
+          <li class="pending">[FALTA CONTENIDO: para quién no es 2]</li>
+          <li class="pending">[FALTA CONTENIDO: para quién no es 3]</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · CTA -->
+{{> cta}}

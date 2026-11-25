@@ -1,0 +1,41 @@
+<!-- Tarjetas de servicio: el MISMO componente en el home y en /servicios.
+     Cada tarjeta es un acceso a su página. -->
+    <div class="svc-row" data-active="none">
+
+      <!-- Branding & Marketing -->
+      <a href="{{base}}servicios/branding-marketing/" class="svc svc--brand" data-key="brand" aria-expanded="false">
+        <span class="svc-art" aria-hidden="true">
+          {{> ill-brand}}
+        </span>
+        <span class="svc-text svc-text--left">
+          <span class="svc-label">Branding &amp;<br>Marketing</span>
+          <!-- COPY PENDIENTE: no se lee en la captura -->
+          <span class="svc-desc pending">[Descripción Branding &amp; Marketing — pendiente]</span>
+        </span>
+      </a>
+
+      <!-- Tech & Automation -->
+      <a href="{{base}}servicios/tech-automation/" class="svc svc--tech" data-key="tech" aria-expanded="false">
+        <span class="svc-art" aria-hidden="true">
+          {{> ill-tech}}
+        </span>
+        <span class="svc-text svc-text--center">
+          <span class="svc-label">Tech &amp;<br>Automation</span>
+          <!-- COPY PENDIENTE: no se lee en la captura -->
+          <span class="svc-desc pending">[Descripción Tech &amp; Automation — pendiente]</span>
+        </span>
+      </a>
+
+      <!-- Business Growth & Optimization -->
+      <a href="{{base}}servicios/business-growth/" class="svc svc--growth" data-key="growth" aria-expanded="false">
+        <span class="svc-art" aria-hidden="true">
+          {{> ill-growth}}
+        </span>
+        <span class="svc-text svc-text--right">
+          <span class="svc-label">Business Growth<br>&amp; Optimization</span>
+          <!-- COPY PENDIENTE: no se lee en la captura -->
+          <span class="svc-desc pending">[Descripción Business Growth &amp; Optimization — pendiente]</span>
+        </span>
+      </a>
+
+    </div>

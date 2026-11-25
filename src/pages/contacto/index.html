@@ -1,0 +1,79 @@
+<!--page {"path": "contacto/", "title": "Contact — Free Evaluation", "description": "Get a no-cost assessment of your business challenges and discover how we can help you grow.", "nav": "contacto"} -->
+
+<!-- ============================================================
+     /contacto — evaluación gratuita en 4 pasos, una pregunta por
+     pantalla. Mismos inputs y chips que el formulario del home.
+     ============================================================ -->
+<section class="block">
+  <div class="slab slab--flow contact-grid">
+    <div class="page-hero-text">
+      <h1 class="page-title">Let’s<br>Make<br>It Real</h1>
+      <p class="lead">Get a no-cost assessment of your business challenges and discover how we can help you grow.</p>
+    </div>
+
+    <div>
+      <form class="wizard" novalidate>
+        <div class="wizard-progress">
+          <span data-step-count>1 / 4</span>
+          <div class="progress" aria-hidden="true"><span></span></div>
+        </div>
+
+        <!-- Paso 1 · qué necesitás -->
+        <fieldset class="wizard-step" data-need="one" data-error="Choose at least one option.">
+          <legend>What do you need?</legend>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="need" value="branding"><span>Branding &amp;<br>Marketing</span></label>
+            <label class="chip"><input type="checkbox" name="need" value="tech"><span>Tech &amp;<br>Automation</span></label>
+            <label class="chip"><input type="checkbox" name="need" value="growth"><span>Business Growth<br>&amp; Optimization</span></label>
+            <label class="chip"><input type="checkbox" name="need" value="program"><span>The 3-Month<br>Program</span></label>
+            <label class="chip"><input type="checkbox" name="need" value="out-of-the-box"><span>Out of<br>the Box</span></label>
+          </div>
+        </fieldset>
+
+        <!-- Paso 2 · rubro -->
+        <fieldset class="wizard-step" data-error="Tell us your industry." hidden>
+          <legend>What’s your industry?</legend>
+          <div class="wizard-fields">
+            <label class="field"><span class="sr">Industry</span><input name="industry" placeholder="Industry" required></label>
+          </div>
+        </fieldset>
+
+        <!-- Paso 3 · tamaño. A CONFIRMAR: los rangos son provisorios -->
+        <fieldset class="wizard-step" data-need="one" data-error="Choose one option." hidden>
+          <legend>How big is your team?</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="size" value="1-10"><span>1–10</span></label>
+            <label class="chip"><input type="radio" name="size" value="11-50"><span>11–50</span></label>
+            <label class="chip"><input type="radio" name="size" value="51-200"><span>51–200</span></label>
+            <label class="chip"><input type="radio" name="size" value="200+"><span>200+</span></label>
+          </div>
+        </fieldset>
+
+        <!-- Paso 4 · datos de contacto (mismos campos que el home) -->
+        <fieldset class="wizard-step" data-error="Please complete your name and a valid email." hidden>
+          <legend>How can we reach you?</legend>
+          <div class="wizard-fields">
+            <div class="form-row--2">
+              <label class="field"><span class="sr">Name</span><input name="name" placeholder="Name" autocomplete="given-name" required></label>
+              <label class="field"><span class="sr">Last Name</span><input name="lastname" placeholder="Last Name" autocomplete="family-name"></label>
+            </div>
+            <label class="field"><span class="sr">Email</span><input name="email" type="email" placeholder="Email" autocomplete="email" required></label>
+            <label class="field"><span class="sr">Phone Number</span><input name="phone" type="tel" placeholder="Phone Number" autocomplete="tel"></label>
+            <label class="field field--area"><span class="sr">Message</span><textarea name="message" placeholder="Message" rows="3"></textarea></label>
+          </div>
+        </fieldset>
+
+        <p class="wizard-error" role="alert"></p>
+
+        <div class="wizard-nav">
+          <button type="button" class="pill" data-back>Back</button>
+          <button type="submit" class="pill pill--submit" data-next data-label="Next" data-last="Make It">Next</button>
+        </div>
+      </form>
+
+      <div class="wizard-done" hidden>
+        <p class="title pending">[FALTA CONTENIDO: mensaje de confirmación después de enviar]</p>
+      </div>
+    </div>
+  </div>
+</section>
