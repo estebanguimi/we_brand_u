@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,600;1,900&display=swap">
-  <link rel="stylesheet" href="../../css/styles.css?v=fcaef22e">
+  <link rel="stylesheet" href="../../css/styles.css?v=f290a37d">
   <script>document.documentElement.classList.add('js'); window.WBU_BASE = '../../';</script>
 </head>
 <body>
@@ -212,15 +212,32 @@
     <div class="block-head">
       <h2 class="title">What’s included</h2>
     </div>
-    <div class="cards" style="--cols: 3">
+    <!-- Se expanden como las tarjetas del home: la activa crece y muestra su detalle -->
+    <div class="expand-row" data-expand>
       
-      <article class="card"><h3 class="card-title">Websites and landing pages</h3><p class="card-text">Built to load fast and convert.</p></article>
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-article"/></svg><span class="k">01</span></div>
+        <h3 class="card-title">Websites and landing pages</h3>
+        <div class="card-more"><p class="card-text">Built to load fast and convert.</p></div>
+      </article>
       
-      <article class="card"><h3 class="card-title">Online stores</h3><p class="card-text">Set up, connected and ready to sell.</p></article>
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-pricing"/></svg><span class="k">02</span></div>
+        <h3 class="card-title">Online stores</h3>
+        <div class="card-more"><p class="card-text">Set up, connected and ready to sell.</p></div>
+      </article>
       
-      <article class="card"><h3 class="card-title">Automated workflows</h3><p class="card-text">Repetitive manual steps, handled by the system.</p></article>
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-after"/></svg><span class="k">03</span></div>
+        <h3 class="card-title">Automated workflows</h3>
+        <div class="card-more"><p class="card-text">Repetitive manual steps, handled by the system.</p></div>
+      </article>
       
-      <article class="card"><h3 class="card-title">AI in production</h3><p class="card-text">Assisted generation, automated pipelines and our own scripts. Shorter delivery times, same quality.</p></article>
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-pods"/></svg><span class="k">04</span></div>
+        <h3 class="card-title">AI in production</h3>
+        <div class="card-more"><p class="card-text">Assisted generation, automated pipelines and our own scripts. Shorter delivery times, same quality.</p></div>
+      </article>
       
     </div>
   </div>
@@ -261,8 +278,12 @@
       <h2 class="title">Who it’s for</h2>
       <p class="lead">Your team takes part. That’s how it stays yours.</p>
     </div>
-    <div class="cards" style="--cols: 2">
-      <article class="card card--strong">
+    <div class="switch" data-switch role="tablist" aria-label="Who it’s for">
+      <button type="button" class="pill is-on" role="tab" aria-selected="true" data-to="0">It’s a fit</button>
+      <button type="button" class="pill" role="tab" aria-selected="false" data-to="1">It’s not a fit</button>
+    </div>
+    <div class="switch-panels" data-switch-panels>
+      <article class="card card--strong switch-panel is-on" role="tabpanel">
         <h3 class="card-title">It’s a fit if</h3>
         <ul class="card-list">
           <li>You’re a mid-sized company that already makes revenue.</li>
@@ -270,7 +291,7 @@
           <li>You want your own team to run it afterwards.</li>
         </ul>
       </article>
-      <article class="card">
+      <article class="card switch-panel" role="tabpanel">
         <h3 class="card-title">It’s not a fit if</h3>
         <ul class="card-list">
           <li>You’re looking for the cheapest provider.</li>
@@ -358,7 +379,7 @@
 
 </main>
 
-<script src="../../js/imagenes.js?v=fcaef22e"></script>
-<script src="../../js/main.js?v=fcaef22e"></script>
+<script src="../../js/imagenes.js?v=f290a37d"></script>
+<script src="../../js/main.js?v=f290a37d"></script>
 </body>
 </html>

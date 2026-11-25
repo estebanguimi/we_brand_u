@@ -9,11 +9,36 @@
     "solvesTitle": "You look improvised",
     "solves": "Your company works at a high level. Your brand doesn’t show it. Partners judge what they see first.",
     "included": [
-      { "t": "Visual identity", "d": "How your brand looks, and the rules to keep it consistent." },
-      { "t": "Graphic pieces", "d": "The designs and templates your channels run on." },
-      { "t": "Content strategy", "d": "What you say, to whom, and on which channel." },
-      { "t": "Social media", "d": "Your channels, set up and running on a calendar." },
-      { "t": "Paid media", "d": "Campaigns that put your message in front of the right people." }
+      {
+        "t": "Visual identity",
+        "d": "How your brand looks, and the rules to keep it consistent.",
+        "i": "s-idea",
+        "n": "01"
+      },
+      {
+        "t": "Graphic pieces",
+        "d": "The designs and templates your channels run on.",
+        "i": "s-pieces",
+        "n": "02"
+      },
+      {
+        "t": "Content strategy",
+        "d": "What you say, to whom, and on which channel.",
+        "i": "s-list",
+        "n": "03"
+      },
+      {
+        "t": "Social media",
+        "d": "Your channels, set up and running on a calendar.",
+        "i": "p-blog",
+        "n": "04"
+      },
+      {
+        "t": "Paid media",
+        "d": "Campaigns that put your message in front of the right people.",
+        "i": "s-audience",
+        "n": "05"
+      }
     ]
   },
   {
@@ -26,10 +51,30 @@
     "solvesTitle": "Hours lost to busywork",
     "solves": "Your team spends hours on tasks a well-built tool does on its own. That time belongs to the work only people can do.",
     "included": [
-      { "t": "Websites and landing pages", "d": "Built to load fast and convert." },
-      { "t": "Online stores", "d": "Set up, connected and ready to sell." },
-      { "t": "Automated workflows", "d": "Repetitive manual steps, handled by the system." },
-      { "t": "AI in production", "d": "Assisted generation, automated pipelines and our own scripts. Shorter delivery times, same quality." }
+      {
+        "t": "Websites and landing pages",
+        "d": "Built to load fast and convert.",
+        "i": "s-article",
+        "n": "01"
+      },
+      {
+        "t": "Online stores",
+        "d": "Set up, connected and ready to sell.",
+        "i": "s-pricing",
+        "n": "02"
+      },
+      {
+        "t": "Automated workflows",
+        "d": "Repetitive manual steps, handled by the system.",
+        "i": "s-after",
+        "n": "03"
+      },
+      {
+        "t": "AI in production",
+        "d": "Assisted generation, automated pipelines and our own scripts. Shorter delivery times, same quality.",
+        "i": "s-pods",
+        "n": "04"
+      }
     ]
   },
   {
@@ -42,9 +87,24 @@
     "solvesTitle": "Busy, but is it working",
     "solves": "You post a lot. You can’t tell if any of it brings in business. More posts won’t fix that.",
     "included": [
-      { "t": "Process analysis", "d": "Where time and money go today." },
-      { "t": "KPIs", "d": "The few numbers that tell you if it’s working." },
-      { "t": "Growth strategy", "d": "Plans to scale what already works." }
+      {
+        "t": "Process analysis",
+        "d": "Where time and money go today.",
+        "i": "s-after",
+        "n": "01"
+      },
+      {
+        "t": "KPIs",
+        "d": "The few numbers that tell you if it’s working.",
+        "i": "s-track",
+        "n": "02"
+      },
+      {
+        "t": "Growth strategy",
+        "d": "Plans to scale what already works.",
+        "i": "s-idea",
+        "n": "03"
+      }
     ]
   }
 ]

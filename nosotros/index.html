@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,600;1,900&display=swap">
-  <link rel="stylesheet" href="../css/styles.css?v=fcaef22e">
+  <link rel="stylesheet" href="../css/styles.css?v=f290a37d">
   <script>document.documentElement.classList.add('js'); window.WBU_BASE = '../';</script>
 </head>
 <body>
@@ -130,7 +130,7 @@
      /nosotros — modelo de pods, filosofía, trayectoria, equipo
      ============================================================ -->
 <section class="block" data-label="About Us" data-icon="p-nosotros">
-  <div class="slab slab--flow page-hero page-hero--text">
+  <div class="slab slab--flow page-hero">
     <!-- Arcos orbitales de las páginas internas (mismo motivo y rotación que el home) -->
     <svg class="orbits" viewBox="0 0 1240 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <circle cx="930" cy="350" r="220" fill="url(#g-glow)" opacity=".35"/>
@@ -149,6 +149,28 @@
       <span class="k">About Us</span>
       <h1 class="page-title">Not an office. Pods.</h1>
       <p class="lead">Small remote teams, hired locally in each market, connected to our central team.</p>
+    </div>
+    <div class="page-hero-art">
+      <div class="ill-stage" data-play-on-view aria-hidden="true"><svg viewBox="0 0 400 400" class="ill ill-pods">
+  <circle cx="200" cy="200" r="150" fill="url(#g-glow)" opacity=".45"/>
+  <circle cx="200" cy="200" r="140" class="ring ring--c"/>
+  <!-- los pods orbitan la central; por cada conexión viaja un pulso -->
+  <g class="pods-orbit">
+    <path d="M200 200L200 60" class="pod-line"/><path d="M200 200L200 60" pathLength="100" class="pod-pulse" style="--k:0"/>
+    <path d="M200 200L333.1 156.7" class="pod-line"/><path d="M200 200L333.1 156.7" pathLength="100" class="pod-pulse" style="--k:1"/>
+    <path d="M200 200L282.3 313.3" class="pod-line"/><path d="M200 200L282.3 313.3" pathLength="100" class="pod-pulse" style="--k:2"/>
+    <path d="M200 200L117.7 313.3" class="pod-line"/><path d="M200 200L117.7 313.3" pathLength="100" class="pod-pulse" style="--k:3"/>
+    <path d="M200 200L66.9 156.7" class="pod-line"/><path d="M200 200L66.9 156.7" pathLength="100" class="pod-pulse" style="--k:4"/>
+    <g transform="translate(200 60)"><g class="oi-in"><circle r="27" class="bubble"/><svg x="-14" y="-14" width="28" height="28" viewBox="0 0 24 24" class="pod-ico"><use href="#s-pods"/></svg></g></g>
+    <g transform="translate(333.1 156.7)"><g class="oi-in"><circle r="27" class="bubble"/><svg x="-14" y="-14" width="28" height="28" viewBox="0 0 24 24" class="pod-ico"><use href="#s-pods"/></svg></g></g>
+    <g transform="translate(282.3 313.3)"><g class="oi-in"><circle r="27" class="bubble"/><svg x="-14" y="-14" width="28" height="28" viewBox="0 0 24 24" class="pod-ico"><use href="#s-pods"/></svg></g></g>
+    <g transform="translate(117.7 313.3)"><g class="oi-in"><circle r="27" class="bubble"/><svg x="-14" y="-14" width="28" height="28" viewBox="0 0 24 24" class="pod-ico"><use href="#s-pods"/></svg></g></g>
+    <g transform="translate(66.9 156.7)"><g class="oi-in"><circle r="27" class="bubble"/><svg x="-14" y="-14" width="28" height="28" viewBox="0 0 24 24" class="pod-ico"><use href="#s-pods"/></svg></g></g>
+  </g>
+  <circle cx="200" cy="200" r="44" class="pod-core"/>
+  <svg x="178" y="173" width="44" height="53" viewBox="0 0 610 730" class="logo-fill"><use href="#logo-u"/></svg>
+</svg>
+</div>
     </div>
   </div>
 </section>
@@ -188,9 +210,9 @@
       <p class="lead">Six years across campaigns, sports organizations and consumer brands.</p>
     </div>
     <div class="cards" style="--cols: 3">
-      <article class="card"><p class="stat-num">1.3M+</p><p class="card-text">Organic views, accumulated.</p></article>
-      <article class="card"><p class="stat-num">607K</p><p class="card-text">Views from a single placement.</p></article>
-      <article class="card"><p class="stat-num">6</p><p class="card-text">Years of experience.</p></article>
+      <article class="card"><p class="stat-num" data-count="1.3" data-decimals="1" data-suffix="M+">1.3M+</p><p class="card-text">Organic views, accumulated.</p></article>
+      <article class="card"><p class="stat-num" data-count="607" data-suffix="K">607K</p><p class="card-text">Views from a single placement.</p></article>
+      <article class="card"><p class="stat-num" data-count="6">6</p><p class="card-text">Years of experience.</p></article>
     </div>
     <p class="text">We Brand U is part of the “We” family of brands, all founded by the same person.</p>
   </div>
@@ -291,7 +313,7 @@
 
 </main>
 
-<script src="../js/imagenes.js?v=fcaef22e"></script>
-<script src="../js/main.js?v=fcaef22e"></script>
+<script src="../js/imagenes.js?v=f290a37d"></script>
+<script src="../js/main.js?v=f290a37d"></script>
 </body>
 </html>

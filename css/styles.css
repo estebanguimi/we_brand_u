@@ -1073,6 +1073,140 @@ a.work--grid:hover, a.work--grid:focus-visible { border-color: var(--line-strong
 /* encabezado de página de texto plano (legales): sin arcos ni ilustración */
 .page-head { display: grid; gap: var(--sp-3); padding-top: var(--sp-5); }
 
+/* =====================================================================
+   PÁGINAS INTERNAS VIVAS — mismas primitivas, más interacción
+   ===================================================================== */
+
+/* --- Programa: anillo de tres meses (se dibuja en loop) ------------------ */
+.prog-track { fill: none; stroke: var(--accent-dark); stroke-opacity: .35; stroke-width: 16; }
+.prog-seg { fill: none; stroke: var(--accent); stroke-width: 16; stroke-linecap: round; }
+.prog-dot circle { fill: var(--accent); filter: drop-shadow(0 0 7px rgba(0, 202, 113, .95)); }
+.prog-label { fill: var(--dim); font: 600 15px var(--font); }
+.prog-core { fill: var(--bubble); stroke: var(--line); }
+.js .prog-seg { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.js .prog-dot { opacity: 0; }
+.js .play .prog-seg { animation: progSeg 7.2s var(--ease) infinite; animation-delay: calc(var(--k) * 1.1s); }
+.js .play .prog-dot { animation: progDot 7.2s var(--ease) infinite; animation-delay: calc(var(--k) * 1.1s); }
+.js .play .prog-label { animation: progLabel 7.2s var(--ease) infinite; animation-delay: calc(var(--k) * 1.1s); }
+@keyframes progSeg { 0% { stroke-dashoffset: 1; opacity: 1; } 14% { stroke-dashoffset: 0; } 78% { stroke-dashoffset: 0; opacity: 1; } 90%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes progDot { 0%, 12% { opacity: 0; } 16%, 78% { opacity: 1; } 90%, 100% { opacity: 0; } }
+@keyframes progLabel { 0%, 10% { fill: var(--dim); } 16%, 78% { fill: var(--text); } 90%, 100% { fill: var(--dim); } }
+
+/* --- Nosotros: pods orbitando la central ------------------------------- */
+.pods-orbit { transform-origin: 200px 200px; animation: spin 60s linear infinite; }
+.pod-line { stroke: var(--accent); stroke-opacity: .28; stroke-width: 1.5; }
+.pod-pulse { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 6 94;
+  filter: drop-shadow(0 0 5px rgba(0, 202, 113, .9)); animation: podPulse 2.6s linear infinite; animation-delay: calc(var(--k) * -.52s); }
+@keyframes podPulse { from { stroke-dashoffset: 6; } to { stroke-dashoffset: -94; } }
+.pod-ico { fill: var(--accent); }
+.pod-core { fill: var(--bubble); stroke: var(--line-strong); }
+
+/* --- Programa: la carrera hasta operar solos --------------------------- */
+.race { display: grid; gap: var(--sp-3); }
+.race-head, .race-row { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 2fr) 14ch; gap: var(--sp-4); align-items: center; }
+.race-head { font-size: var(--fs-small); color: var(--dim); }
+.race-head > span:first-child { grid-column: 1; }
+.race-scale { grid-column: 2; display: flex; justify-content: space-between; }
+.race-scale i { font-style: normal; }
+.race-row {
+  padding: var(--sp-4) var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  transition: border-color var(--dur-2), opacity var(--dur-2);
+}
+.race:hover .race-row:not(:hover) { opacity: .45; }
+.race-row:hover, .race-row:focus-visible { border-color: var(--line-strong); outline: none; }
+.race-label .card-text { margin-top: var(--sp-1); }
+.race-track { position: relative; height: max(10px, .9cqw); border-radius: var(--r-pill); background: var(--track); }
+.race-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  border-radius: inherit;
+  background: var(--accent);
+  transform-origin: left center;
+}
+.race-value { font-size: var(--fs-ui-lg); text-align: right; color: var(--body); }
+.race-row--us .race-value { color: var(--accent); }
+/* agencia: corre hasta el final y sigue (se pierde en el borde) */
+.race-row--never .race-fill { right: 0; background: linear-gradient(to right, var(--accent-dark), var(--accent-dark) 70%, transparent); }
+/* junior: un año, a los tumbos */
+.race-row--slow .race-fill { right: 0; background: var(--gray-ghost); }
+/* nosotros: tres meses (25 % de la pista) */
+.race-row--us .race-fill { width: 25%; box-shadow: 0 0 5cqw var(--glow-soft); }
+.race-flag {
+  position: absolute; left: 25%; top: 50%;
+  width: max(14px, 1.3cqw); height: max(14px, 1.3cqw);
+  border-radius: 50%; background: var(--accent);
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 7px rgba(0, 202, 113, .95));
+}
+.js .race .race-fill { transform: scaleX(0); }
+.js .race .race-flag { opacity: 0; }
+.js .race.play .race-row--never .race-fill { animation: raceNever 3.2s linear forwards; }
+.js .race.play .race-row--slow .race-fill { animation: raceSlowSmooth 3.2s var(--ease-curve) forwards; }
+.js .race.play .race-row--us .race-fill { animation: slFill 1.1s var(--ease-out) .3s forwards; --v: 1; }
+.js .race.play .race-flag { animation: nodeOn .55s 1.4s forwards; }
+@keyframes raceNever { to { transform: scaleX(1); } }
+@keyframes raceSlowSmooth { 0% { transform: scaleX(0); } 20% { transform: scaleX(.18); } 32% { transform: scaleX(.12); } 52% { transform: scaleX(.46); }
+  64% { transform: scaleX(.38); } 82% { transform: scaleX(.8); } 100% { transform: scaleX(1); } }
+
+/* --- Timeline interactivo: el paso activo se enciende ------------------- */
+.timeline-steps .card { cursor: pointer; transition: border-color var(--dur-2), box-shadow var(--dur-2); }
+.timeline-steps .card.is-on { border-color: var(--line-strong); box-shadow: 0 0 5cqw var(--glow-soft); }
+.timeline-node { transition: transform var(--dur-2) var(--ease), filter var(--dur-2); }
+.timeline-node.is-on { transform: translate(-50%, -50%) scale(1.9); filter: drop-shadow(0 0 7px rgba(0, 202, 113, .95)); }
+
+/* --- Entregables: fila que se expande como las tarjetas del home -------- */
+.expand-row { display: flex; gap: var(--sp-4); align-items: stretch; }
+.expand-card {
+  flex: 1 1 0; min-width: 0;
+  cursor: pointer;
+  transition: flex-grow var(--dur-3) var(--ease), border-color var(--dur-2), box-shadow var(--dur-2);
+}
+.expand-card.is-on { flex-grow: 2.4; border-color: var(--line-strong); box-shadow: 0 0 5cqw var(--glow-soft); }
+.expand-card:focus-visible { outline: none; border-color: var(--accent); }
+.expand-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-3); }
+.expand-ico { width: max(22px, 2cqw); height: max(22px, 2cqw); fill: var(--gray-icon-hover); transition: fill var(--dur-2), filter var(--dur-2); }
+.expand-card.is-on .expand-ico { fill: var(--accent); filter: drop-shadow(0 0 6px rgba(0, 202, 113, .55)); }
+.expand-card .card-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.expand-card.is-on .card-title { white-space: normal; }
+.card-more { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows var(--dur-3) var(--ease), opacity var(--dur-2); }
+.card-more > * { overflow: hidden; }
+.expand-card.is-on .card-more { grid-template-rows: 1fr; opacity: 1; transition-delay: .15s; }
+
+/* --- Selector de dos estados (para quién es / no es) -------------------- */
+.switch { position: relative; display: inline-flex; gap: var(--sp-2); margin-bottom: var(--sp-4); }
+.switch .pill { transition: border-color var(--dur-2), background-color var(--dur-2), color var(--dur-2); color: var(--gray-hover); }
+.switch .pill.is-on { border-color: var(--accent); background: var(--glow-soft); color: var(--text); }
+.switch-panels { display: grid; }
+.switch-panel { grid-area: 1 / 1; opacity: 0; transform: translateX(-12px); pointer-events: none;
+  transition: opacity var(--dur-2) var(--ease), transform var(--dur-3) var(--ease); }
+.switch-panel.is-on { opacity: 1; transform: none; pointer-events: auto; }
+
+/* --- Out of the Box: Shout to win -------------------------------------- */
+.shout { grid-template-columns: 1fr 1.1fr; align-items: center; gap: var(--sp-6); }
+.slab--tall.shout { display: grid; }
+.shout-copy { display: grid; justify-items: start; gap: var(--sp-4); }
+.shout-btn { touch-action: none; user-select: none; -webkit-user-select: none; }
+.shout-btn.is-down { border-color: var(--accent); background: var(--glow-soft); }
+.shout.is-won .shout-title { color: var(--accent); }
+.shout-meter { position: relative; height: 28cqw; }
+.shout-bars { position: absolute; inset: 0; display: flex; align-items: flex-end; gap: .5cqw; }
+.shout-bars i {
+  flex: 1;
+  height: var(--h, 4%);
+  border-radius: var(--r-pill);
+  background: var(--track);
+  transition: background-color var(--dur-1);
+}
+.shout-bars i.is-on { background: var(--accent); }
+.shout.is-won .shout-bars i.is-on { filter: drop-shadow(0 0 7px rgba(0, 202, 113, .95)); }
+.shout-mark { position: absolute; left: 0; right: 0; top: 15%; border-top: 1px dashed var(--line-strong); }
+.shout-mark::after { content: "Win"; position: absolute; right: 0; top: -1.6em; font-size: var(--fs-small); color: var(--accent); }
+
+/* --- Formulario: transición entre pasos -------------------------------- */
+.wizard-step:not([hidden]) { animation: stepIn var(--dur-2) var(--ease-out); }
+@keyframes stepIn { from { opacity: 0; transform: translateX(14px); } }
+
 /* --- Footer ------------------------------------------------------------- */
 .site-footer {
   position: relative;
@@ -1282,5 +1416,22 @@ html.paged .site-footer { padding-top: var(--sp-6); }
   .pieces { grid-template-columns: 1fr; }
   .post-row a { grid-template-columns: 1fr; }
   .post-excerpt, .prose { max-width: none; }
+  .race-head { display: none; }
+  .race-row { grid-template-columns: 1fr auto; }
+  .race-label { grid-column: 1 / -1; }
+  .expand-row { flex-direction: column; }
+  .expand-card .card-title { white-space: normal; }
+  .card-more { grid-template-rows: 1fr; opacity: 1; }
+  .shout { grid-template-columns: 1fr; }
+  .shout-meter { height: 200px; }
   .footer-cols { grid-template-columns: 1fr 1fr; }
+}
+
+/* movimiento reducido: estados finales, sin loops */
+@media (prefers-reduced-motion: reduce) {
+  .prog-seg, .prog-dot, .prog-label, .pods-orbit, .pod-pulse { animation: none !important; }
+  .js .prog-seg { stroke-dashoffset: 0; }
+  .js .prog-dot { opacity: 1; }
+  .js .race .race-fill { transform: none; }
+  .js .race .race-flag { opacity: 1; }
 }

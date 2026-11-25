@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,600;1,900&display=swap">
-  <link rel="stylesheet" href="../css/styles.css?v=fcaef22e">
+  <link rel="stylesheet" href="../css/styles.css?v=f290a37d">
   <script>document.documentElement.classList.add('js'); window.WBU_BASE = '../';</script>
 </head>
 <body>
@@ -132,7 +132,7 @@
 
 <!-- 1 · Hero: la promesa en una línea -->
 <section class="block" data-label="Three months" data-icon="s-idea">
-  <div class="slab slab--flow page-hero page-hero--text">
+  <div class="slab slab--flow page-hero">
     <!-- Arcos orbitales de las páginas internas (mismo motivo y rotación que el home) -->
     <svg class="orbits" viewBox="0 0 1240 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <circle cx="930" cy="350" r="220" fill="url(#g-glow)" opacity=".35"/>
@@ -153,6 +153,25 @@
       <p class="lead">We build your digital presence, run it to prove it works, then hand it to your trained team.</p>
       <a href="../contacto/" class="pill">Get Your Free Evaluation</a>
     </div>
+    <div class="page-hero-art">
+      <div class="ill-stage" data-play-on-view aria-hidden="true"><svg viewBox="0 0 400 400" class="ill ill-program">
+  <circle cx="200" cy="200" r="170" fill="url(#g-glow)" opacity=".5"/>
+  <circle cx="200" cy="200" r="150" class="prog-track"/>
+  <!-- los tres meses: cada arco se dibuja en orden y el ciclo se repite -->
+  <path d="M207.8 50.2A150 150 0 0 1 333.6 268.1" pathLength="1" class="prog-seg" style="--k:0"/>
+  <path d="M325.8 281.7A150 150 0 0 1 74.2 281.7" pathLength="1" class="prog-seg" style="--k:1"/>
+  <path d="M66.4 268.1A150 150 0 0 1 192.2 50.2" pathLength="1" class="prog-seg" style="--k:2"/>
+  <g class="prog-dot" style="--k:0"><circle cx="333.6" cy="268.1" r="7"/></g>
+  <g class="prog-dot" style="--k:1"><circle cx="74.2" cy="281.7" r="7"/></g>
+  <g class="prog-dot" style="--k:2"><circle cx="192.2" cy="50.2" r="7"/></g>
+  <text x="342" y="78" text-anchor="middle" class="prog-label" style="--k:0">Month 1</text>
+  <text x="200" y="384" text-anchor="middle" class="prog-label" style="--k:1">Month 2</text>
+  <text x="58" y="78" text-anchor="middle" class="prog-label" style="--k:2">Month 3</text>
+  <circle cx="200" cy="200" r="70" class="prog-core"/>
+  <svg x="172" y="166" width="56" height="67" viewBox="0 0 610 730" class="logo-fill"><use href="#logo-u"/></svg>
+</svg>
+</div>
+    </div>
   </div>
 </section>
 
@@ -163,17 +182,28 @@
       <span class="k">The problem</span>
       <h2 class="title">Two bad options</h2>
     </div>
-    <div class="cards" style="--cols: 2">
-      <article class="card">
-        <h3 class="card-title">An agency, forever</h3>
-        <p class="card-text">They produce for you indefinitely. You never learn how. The cost never drops. Cancel the contract and you’re back to zero.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">One junior hire</h3>
-        <p class="card-text">They take a year to find out what works. Meanwhile, you publish anything.</p>
-      </article>
+    <!-- Carrera: cuánto tarda el equipo del partner en operar solo -->
+    <div class="race" data-race>
+      <div class="race-head" aria-hidden="true">
+        <span>Until your team runs it on its own</span>
+        <span class="race-scale"><i>Month 0</i><i>3</i><i>6</i><i>9</i><i>12</i></span>
+      </div>
+      <div class="race-row race-row--never" tabindex="0">
+        <div class="race-label"><h3 class="card-title">An agency, forever</h3><p class="card-text">You never learn how. The cost never drops. Cancel and you’re back to zero.</p></div>
+        <div class="race-track"><span class="race-fill"></span></div>
+        <span class="race-value">Never</span>
+      </div>
+      <div class="race-row race-row--slow" tabindex="0">
+        <div class="race-label"><h3 class="card-title">One junior hire</h3><p class="card-text">A year to find out what works. Meanwhile, you publish anything.</p></div>
+        <div class="race-track"><span class="race-fill"></span></div>
+        <span class="race-value">About a year</span>
+      </div>
+      <div class="race-row race-row--us" tabindex="0">
+        <div class="race-label"><h3 class="card-title">We Brand U</h3><p class="card-text">Built, proven, handed over. Independent, not dependent.</p></div>
+        <div class="race-track"><span class="race-fill"></span><span class="race-flag"></span></div>
+        <span class="race-value">Three months</span>
+      </div>
     </div>
-    <p class="text">We build the system, run it until it works, and hand it over with your team trained. You end up independent, not dependent.</p>
   </div>
 </section>
 
@@ -396,7 +426,7 @@
 
 </main>
 
-<script src="../js/imagenes.js?v=fcaef22e"></script>
-<script src="../js/main.js?v=fcaef22e"></script>
+<script src="../js/imagenes.js?v=f290a37d"></script>
+<script src="../js/main.js?v=f290a37d"></script>
 </body>
 </html>

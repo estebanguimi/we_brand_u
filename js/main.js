@@ -531,8 +531,139 @@
     });
   });
 
-  /* Timeline: el arco se dibuja y los hitos se encienden al entrar en vista */
-  $$('.timeline').forEach((tl) => onceInView(tl, () => tl.classList.add('play'), 0.3));
+  /* Timeline: el arco se dibuja y los hitos se encienden al entrar en vista.
+     Después recorre los pasos solo (como el carrusel del home); el que
+     tocás o señalás queda activo. */
+  $$('.timeline').forEach((tl) => {
+    const cards = $$('.timeline-steps > .card', tl);
+    const nodes = $$('.timeline-node', tl);
+    let i = -1;
+    let timer = null;
+    let hold = false;
+    const set = (k) => {
+      i = k;
+      cards.forEach((c, n) => c.classList.toggle('is-on', n === k));
+      nodes.forEach((c, n) => c.classList.toggle('is-on', n === k));
+    };
+    const loop = () => {
+      clearInterval(timer);
+      if (!reduced()) timer = setInterval(() => { if (!hold) set((i + 1) % cards.length); }, 3200);
+    };
+    cards.forEach((c, n) => {
+      c.addEventListener('mouseenter', () => { hold = true; set(n); });
+      c.addEventListener('mouseleave', () => { hold = false; });
+      c.addEventListener('click', () => set(n));
+    });
+    onceInView(tl, () => {
+      tl.classList.add('play');
+      setTimeout(() => { set(0); loop(); }, reduced() ? 0 : 1800);
+    }, 0.3);
+  });
+
+  /* Contadores: los números de la trayectoria suben al entrar en vista */
+  $$('[data-count]').forEach((el) => {
+    const to = parseFloat(el.dataset.count);
+    const dec = parseInt(el.dataset.decimals || '0', 10);
+    const suf = el.dataset.suffix || '';
+    onceInView(el, () => {
+      if (reduced()) return;
+      const t0 = performance.now();
+      const D = 1800;                                     // --dur-long
+      const tick = (now) => {
+        const p = Math.min(1, (now - t0) / D);
+        const e = 1 - Math.pow(1 - p, 3);                  // salida suave
+        el.textContent = (to * e).toFixed(dec) + suf;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      el.textContent = (0).toFixed(dec) + suf;
+      requestAnimationFrame(tick);
+    }, 0.5);
+  });
+
+  /* Carrera del programa: las barras corren al entrar en vista */
+  $$('[data-race]').forEach((r) => onceInView(r, () => r.classList.add('play'), 0.35));
+
+  /* Entregables: la tarjeta señalada se expande (como en el home) */
+  $$('[data-expand]').forEach((row) => {
+    const cards = $$('.expand-card', row);
+    const lock = makeLock(500);
+    const set = (c) => { cards.forEach((x) => x.classList.toggle('is-on', x === c)); lock.set(); };
+    set(cards[0]);
+    cards.forEach((c) => {
+      c.addEventListener('mousemove', () => { if (canHover() && !lock.on() && !c.classList.contains('is-on')) set(c); });
+      c.addEventListener('click', () => set(c));
+      c.addEventListener('focus', () => set(c));
+    });
+  });
+
+  /* Selector de dos estados */
+  $$('[data-switch]').forEach((sw) => {
+    const btns = $$('button', sw);
+    const panels = $$('.switch-panel', sw.nextElementSibling);
+    btns.forEach((b, n) => b.addEventListener('click', () => {
+      btns.forEach((x, m) => { x.classList.toggle('is-on', m === n); x.setAttribute('aria-selected', String(m === n)); });
+      panels.forEach((p, m) => p.classList.toggle('is-on', m === n));
+    }));
+  });
+
+  /* Out of the Box · Shout to win: mantener apretado = gritar.
+     El nivel sube mientras apretás y baja al soltar. Pasar la marca gana. */
+  $$('[data-shout]').forEach((box) => {
+    const bars = $('[data-shout-bars]', box);
+    const btn = $('[data-shout-btn]', box);
+    const title = $('[data-shout-title]', box);
+    const N = 28;
+    const MARK = 0.85;
+    bars.innerHTML = Array.from({ length: N }, () => '<i></i>').join('');
+    const els = $$('i', bars);
+    let level = 0;
+    let down = false;
+    let won = false;
+    let raf = null;
+    let last = 0;
+    const draw = (t) => {
+      els.forEach((el, k) => {
+        const x = (k + 0.5) / N;
+        // forma de onda: más alta al centro, con vibración mientras "gritás"
+        const shape = 0.55 + 0.45 * Math.sin(Math.PI * x);
+        const jitter = down ? 0.12 * Math.sin(t / 70 + k * 1.7) : 0;
+        const h = Math.max(0.04, Math.min(1, level * shape + jitter * level));
+        el.style.setProperty('--h', `${(h * 100).toFixed(1)}%`);
+        el.classList.toggle('is-on', h > 0.06);
+      });
+    };
+    const frame = (t) => {
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016;
+      last = t;
+      level += down ? dt * 0.42 : -dt * 0.9;
+      level = Math.max(0, Math.min(1, level));
+      if (!won && level >= MARK) {
+        won = true;
+        box.classList.add('is-won');
+        title.textContent = 'You win.';
+        btn.textContent = 'Again';
+      }
+      draw(t);
+      if (down || level > 0) raf = requestAnimationFrame(frame);
+      else { raf = null; last = 0; }
+    };
+    const start = (e) => {
+      if (e) e.preventDefault();
+      if (won && !down) {                                 // "Again": reinicia
+        won = false; box.classList.remove('is-won');
+        title.textContent = 'Try it.'; btn.textContent = 'Hold to shout';
+      }
+      down = true; btn.classList.add('is-down');
+      if (!raf) raf = requestAnimationFrame(frame);
+    };
+    const stop = () => { down = false; btn.classList.remove('is-down'); };
+    btn.addEventListener('pointerdown', start);
+    addEventListener('pointerup', stop);
+    btn.addEventListener('pointerleave', stop);
+    btn.addEventListener('keydown', (e) => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) start(e); });
+    btn.addEventListener('keyup', (e) => { if (e.key === ' ' || e.key === 'Enter') stop(); });
+    draw(0);
+  });
 
   /* -------------------------------------------------------------------
      Preguntas frecuentes (acordeón)
