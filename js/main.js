@@ -275,6 +275,60 @@
   }
 
   /* -------------------------------------------------------------------
+     Scroll de vista en vista (solo escritorio, donde cada sección mide
+     una pantalla). Un gesto de rueda/trackpad = una vista. Teclado igual.
+     ------------------------------------------------------------------- */
+  const deskMQ = matchMedia('(min-width: 761px)');
+  const views = $$('[data-section]');
+  let viewLock = false;
+  let lastWheel = 0;
+
+  const currentView = () => {
+    let best = 0;
+    views.forEach((v, i) => {
+      if (Math.abs(v.offsetTop - scrollY) < Math.abs(views[best].offsetTop - scrollY)) best = i;
+    });
+    return best;
+  };
+  // se libera cuando terminó el desplazamiento y el gesto dejó de mandar eventos
+  // (el trackpad sigue emitiendo por inercia: así un gesto no salta dos vistas)
+  const releaseLock = () => {
+    if (performance.now() - lastWheel < 220) setTimeout(releaseLock, 120);
+    else viewLock = false;
+  };
+  function goToView(i) {
+    const target = Math.max(0, Math.min(views.length - 1, i));
+    if (target === currentView()) return;
+    viewLock = true;
+    views[target].scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+    setTimeout(releaseLock, reduced() ? 50 : 750);
+  }
+
+  window.addEventListener('wheel', (e) => {
+    if (!deskMQ.matches || e.ctrlKey) return;            // ctrl + rueda = zoom
+    const ta = e.target.closest && e.target.closest('textarea');
+    if (ta && ta.scrollHeight > ta.clientHeight) return; // dejar scrollear el mensaje
+    e.preventDefault();
+    lastWheel = performance.now();
+    if (viewLock || Math.abs(e.deltaY) < 4) return;
+    goToView(currentView() + (e.deltaY > 0 ? 1 : -1));
+  }, { passive: false });
+
+  window.addEventListener('keydown', (e) => {
+    if (!deskMQ.matches || e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) return;
+    const keys = {
+      ArrowDown: 1, PageDown: 1, ArrowUp: -1, PageUp: -1,
+      ' ': e.shiftKey ? -1 : 1, Home: -99, End: 99,
+    };
+    if (!(e.key in keys)) return;
+    if (e.key === ' ' && e.target.closest && e.target.closest('button, a')) return;
+    e.preventDefault();
+    if (viewLock) return;
+    goToView(currentView() + keys[e.key]);
+  });
+
+  /* -------------------------------------------------------------------
      6 · Formulario
      ------------------------------------------------------------------- */
   const form = $('.form');
