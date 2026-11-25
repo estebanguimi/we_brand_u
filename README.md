@@ -72,13 +72,21 @@ Todo en `js/imagenes.js`. Mientras `src` esté vacío se ve un placeholder con e
 
 ## Interacción
 
-- **Home**: navegación por vistas en escritorio (un gesto = una vista, sin barra de scroll). Las páginas internas tienen scroll normal.
-- **Rail**: navegación del sitio; marca la página activa y muestra el nombre al pasar el mouse. En mobile es una barra inferior con Home, Services, The Program, Contact y un botón "más" con el resto.
-- **Tarjetas de servicio** (home y `/servicios`): hover/tap expande; click lleva a la página del servicio (en touch: primer tap expande, segundo navega).
+- **Navegación por vistas en todo el sitio** (escritorio): la página no scrollea; un gesto de rueda/trackpad, ↓/↑, Av/Re Pág o espacio desliza a la vista siguiente. Cada bloque ocupa una pantalla; si un bloque es más alto (precios, un artículo) se recorre en pasos de una pantalla sin saltear contenido. Sin barra de scroll. En mobile el scroll es normal.
+- **Rail**: en el home, las 6 secciones (el brillo sigue a la vista activa) y, bajo una línea, las páginas del sitio. En las internas, la navegación del sitio con la página activa. En mobile es una barra inferior con un botón "más".
+- **Tarjetas de servicio**: en el home, hover/click/tap expande (como la primera versión). En `/servicios`, hover expande y click lleva a la página del servicio (en touch: primer tap expande, segundo navega).
 - **Ilustraciones de servicio** en su página: el mismo SVG del home, se expande y anima una vez al entrar en vista.
 - **Timeline** (`/programa`, "How we work"): el arco se dibuja y los hitos se encienden al entrar en vista.
 - `prefers-reduced-motion`: todo aparece en su estado final, sin loops.
 
-## Contenido pendiente
+## Copy
 
-Todo lo que falta está marcado en el texto como `[FALTA CONTENIDO: …]` (clase `pending`) y los precios como `[PRECIO-PROGRAMA]`, `[PRECIO-SOPORTE]`, `[PRECIO-PRO]`.
+Todo el texto sale del documento de marca (inglés, voz directa, "partners", sin palabras prohibidas). Lo que el documento no cubre está marcado como `[FALTA CONTENIDO: …]` (clase `pending`):
+
+- Casos reales (cliente, problema, enfoque, resultado, piezas)
+- Nombres, roles y fotos del equipo
+- Testimonios reales del home (los del diseño eran de relleno)
+- Precios confirmados: `[PRECIO-PROGRAMA]`, `[PRECIO-SOPORTE]`, `[PRECIO-PRO]`
+- Artículos del blog
+- Texto legal de Privacidad y Términos
+- Email, teléfono/WhatsApp y redes del footer

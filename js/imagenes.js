@@ -25,9 +25,9 @@ window.WBU_IMAGES = {
   'trabajo-5':    { src: '', w: 1080, h: 1080, alt: '' }, // "Feliz San Valentín" (abajo izq.)
 
   // 5 · What our partners say — fotos (marco redondeado)
-  'testimonio-1': { src: '', w: 480, h: 480, alt: 'Alejandro Torres' },
-  'testimonio-2': { src: '', w: 480, h: 480, alt: 'Sofía Ramírez' },
-  'testimonio-3': { src: '', w: 480, h: 480, alt: 'Mariana López' },
+  'testimonio-1': { src: '', w: 480, h: 480, alt: '' },
+  'testimonio-2': { src: '', w: 480, h: 480, alt: '' },
+  'testimonio-3': { src: '', w: 480, h: 480, alt: '' },
 
   // ---------------------------------------------------------------
   // PÁGINAS INTERNAS

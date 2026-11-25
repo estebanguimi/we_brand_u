@@ -300,66 +300,105 @@
   }
 
   /* -------------------------------------------------------------------
-     Navegación por vistas (escritorio). La página NO scrollea: el <main>
-     se desplaza una pantalla entera con una transición propia. Un gesto de
-     rueda/trackpad = una vista. También teclado, swipe, rail y anclas.
-     En mobile (≤ 760px) el scroll es el normal.
+     Navegación por vistas (escritorio, TODAS las páginas). La página NO
+     scrollea: el <main> se desplaza con una transición propia.
+     Cada hijo de <main> es una vista. Un gesto de rueda/trackpad = un paso.
+     Si una vista es más alta que la pantalla (precios, un artículo), se
+     recorre en pasos de una pantalla, sin saltearse contenido.
+     También teclado, swipe, rail y anclas. En mobile (≤ 760px) el scroll
+     es el normal.
      ------------------------------------------------------------------- */
   const deskMQ = matchMedia('(min-width: 761px)');
-  const PAGED_SITE = document.body.hasAttribute('data-paged');
   const docEl = document.documentElement;
   const mainEl = $('main');
-  const views = $$('[data-section]');
-  const DURATION = 1000;                 // ms, igual que la transición del CSS
+  const views = mainEl ? [...mainEl.children] : [];
+  const DURATION = 1000;                 // ms, igual que la transición del CSS (--dur-page)
+  const STEP = 0.85;                     // dentro de una vista alta: avanza 85% de pantalla
   let paged = false;
-  let page = 0;
+  let stops = [0];
+  let at = 0;                            // índice en stops
   let pageLock = false;
   let lastInput = 0;
 
-  if (PAGED_SITE) views.forEach((v) => v.setAttribute('tabindex', '-1'));
+  views.forEach((v) => { if (!v.hasAttribute('tabindex')) v.setAttribute('tabindex', '-1'); });
   const indexOf = (id) => views.findIndex((v) => v.id === id);
-  const nearestByScroll = () => {
-    let best = 0;
-    views.forEach((v, i) => {
-      if (Math.abs(v.offsetTop - scrollY) < Math.abs(views[best].offsetTop - scrollY)) best = i;
+  const maxY = () => Math.max(0, mainEl.offsetHeight - innerHeight);
+
+  // posiciones de parada: el comienzo de cada vista y, si es alta, pasos intermedios
+  function computeStops() {
+    const H = innerHeight;
+    const max = maxY();
+    const list = [];
+    views.forEach((v) => {
+      const top = v.offsetTop;
+      const h = v.offsetHeight;
+      // apenas más alta que la pantalla: una sola parada, centrada (solo se recorta aire)
+      if (h > H + 2 && h - H < H * 0.3) { list.push(top + (h - H) / 2); return; }
+      list.push(top);
+      if (h > H + 2) {
+        for (let y = top + H * STEP; y < top + h - H; y += H * STEP) list.push(y);
+        list.push(top + h - H);
+      }
     });
+    stops = [...new Set(list.map((y) => Math.round(Math.max(0, Math.min(max, y)))))]
+      .sort((a, b) => a - b)
+      .filter((y, i, arr) => i === 0 || y - arr[i - 1] > 4);
+  }
+  const currentY = () => stops[at] || 0;
+  const stopForY = (y) => {                            // la última parada que no pasa de y
+    let best = 0;
+    stops.forEach((s, i) => { if (s <= y + 1) best = i; });
     return best;
   };
+  const viewAt = (y) => views.find((v) => v.offsetTop <= y + innerHeight / 2 && y + innerHeight / 2 < v.offsetTop + v.offsetHeight);
 
   function applyPage() {
-    // la última vista (footer) es más corta: se alinea al final de la página
-    const y = Math.max(0, Math.min(views[page].offsetTop, mainEl.offsetHeight - innerHeight));
+    const y = currentY();
     mainEl.style.setProperty('--page-y', y);
-    setRail(views[page].id);
+    const v = viewAt(y);
+    if (v && v.id) setRail(v.id);
   }
   // se libera cuando terminó la transición y el gesto dejó de mandar eventos
-  // (el trackpad sigue emitiendo por inercia: así un gesto no salta dos vistas)
+  // (el trackpad sigue emitiendo por inercia: así un gesto no salta dos pasos)
   function releaseLock() {
     if (performance.now() - lastInput < 220) setTimeout(releaseLock, 120);
     else pageLock = false;
   }
-  function goToPage(i) {
-    const target = Math.max(0, Math.min(views.length - 1, i));
-    if (target === page) return;
-    page = target;
+  function goToY(y) {
+    computeStops();                                    // el contenido puede haber cambiado (FAQ, formulario)
+    const i = stopForY(Math.min(y, maxY()));
+    if (i === at && Math.abs(stops[i] - (parseFloat(mainEl.style.getPropertyValue('--page-y')) || 0)) < 2) return;
+    at = i;
     pageLock = true;
     applyPage();
     setTimeout(releaseLock, reduced() ? 60 : DURATION);
   }
+  function step(dir) {
+    const from = currentY();
+    computeStops();
+    at = stopForY(from);
+    const i = Math.max(0, Math.min(stops.length - 1, at + dir));
+    if (i === at) return;
+    goToY(stops[i]);
+  }
+  const goToView = (i) => { if (i >= 0) goToY(views[i].offsetTop); };
 
   function setPaged(on) {
     if (on === paged) return;
     if (on) {
-      page = nearestByScroll();
+      const y = scrollY;
       paged = true;
       docEl.classList.add('paged');
       window.scrollTo(0, 0);
+      computeStops();
+      at = stopForY(y);
       applyPage();
     } else {
+      const y = currentY();
       paged = false;
       docEl.classList.remove('paged');
       mainEl.style.removeProperty('--page-y');
-      views[page].scrollIntoView({ block: 'start' });
+      window.scrollTo(0, y);
     }
   }
 
@@ -371,7 +410,7 @@
     e.preventDefault();
     lastInput = performance.now();
     if (pageLock || Math.abs(e.deltaY) < 4) return;
-    goToPage(page + (e.deltaY > 0 ? 1 : -1));
+    step(e.deltaY > 0 ? 1 : -1);
   }, { passive: false });
 
   // teclado
@@ -380,13 +419,14 @@
     if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) return;
     const keys = {
       ArrowDown: 1, PageDown: 1, ArrowUp: -1, PageUp: -1,
-      ' ': e.shiftKey ? -1 : 1, Home: -99, End: 99,
+      ' ': e.shiftKey ? -1 : 1, Home: -999, End: 999,
     };
     if (!(e.key in keys)) return;
     if (e.key === ' ' && e.target.closest && e.target.closest('button, a')) return;
     e.preventDefault();
     if (pageLock) return;
-    goToPage(page + keys[e.key]);
+    if (Math.abs(keys[e.key]) > 1) goToY(keys[e.key] > 0 ? maxY() : 0);
+    else step(keys[e.key]);
   });
 
   // swipe (pantallas táctiles grandes)
@@ -397,7 +437,7 @@
     if (!paged || touchY === null) return;
     const dy = touchY - e.changedTouches[0].clientY;
     touchY = null;
-    if (Math.abs(dy) > 50 && !pageLock) goToPage(page + (dy > 0 ? 1 : -1));
+    if (Math.abs(dy) > 50 && !pageLock) step(dy > 0 ? 1 : -1);
   });
 
   // rail, CTAs y cualquier ancla interna (#contacto, etc.)
@@ -407,28 +447,35 @@
     const i = indexOf(a.getAttribute('href').slice(1));
     if (i < 0) return;
     e.preventDefault();
-    if (paged) goToPage(i);
+    if (paged) goToView(i);
     else views[i].scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
-    if (PAGED_SITE) views[i].focus({ preventScroll: true });   // Tab sigue dentro de la vista elegida
+    views[i].focus({ preventScroll: true });   // Tab sigue dentro de la vista elegida
   });
 
-  // tabular a un campo de otra vista lleva a esa vista
+  // tabular a un elemento fuera de la pantalla lleva hasta él
   document.addEventListener('focusin', (e) => {
-    if (!paged) return;
-    const sec = e.target.closest && e.target.closest('[data-section]');
-    if (sec) goToPage(indexOf(sec.id));
+    if (!paged || !mainEl.contains(e.target) || views.includes(e.target)) return;
+    const r = e.target.getBoundingClientRect();
+    if (r.top >= 0 && r.bottom <= innerHeight) return;
+    goToY(currentY() + r.top - innerHeight * 0.3);
   });
   // el navegador no debe scrollear por su cuenta en modo vistas
   window.addEventListener('scroll', () => { if (paged && scrollY !== 0) window.scrollTo(0, 0); });
 
   // inicio (respeta un #ancla en la URL)
-  setPaged(PAGED_SITE && deskMQ.matches);
+  setPaged(deskMQ.matches);
   if (paged && location.hash) {
     const i = indexOf(location.hash.slice(1));
-    if (i > 0) { page = i; applyPage(); }
+    if (i > 0) { computeStops(); at = stopForY(views[i].offsetTop); applyPage(); }
   }
-  deskMQ.addEventListener('change', (e) => setPaged(PAGED_SITE && e.matches));
-  addEventListener('resize', () => { if (paged) applyPage(); });
+  deskMQ.addEventListener('change', (e) => setPaged(e.matches));
+  addEventListener('resize', () => {
+    if (!paged) return;
+    const y = currentY();
+    computeStops();
+    at = stopForY(y);
+    applyPage();
+  });
 
   /* -------------------------------------------------------------------
      Ilustraciones de servicio fuera del home (hero de cada servicio):

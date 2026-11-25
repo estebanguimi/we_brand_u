@@ -88,9 +88,9 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
-/* home: sin barra de scroll visible. Las páginas internas (de lectura) la muestran. */
-html.page-home { scrollbar-width: none; -ms-overflow-style: none; }
-html.page-home::-webkit-scrollbar, html.page-home body::-webkit-scrollbar { display: none; width: 0; height: 0; }
+/* sin barra de scroll visible en todo el sitio (el desplazamiento sigue funcionando) */
+html { scrollbar-width: none; -ms-overflow-style: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0; height: 0; }
 /* escritorio: modo vistas (lo activa js/main.js con html.paged).
    La página no scrollea; <main> se desplaza una pantalla por vista. */
 html.paged, html.paged body { height: 100%; overflow: hidden; overscroll-behavior: none; }
@@ -100,6 +100,19 @@ html.paged main {
   will-change: transform;
 }
 html.paged .section { height: 100vh; min-height: 0; }
+/* páginas internas en modo vistas: cada bloque es una pantalla, como en el home */
+html.paged.page-inner main { padding-top: 0; }
+html.paged .block {
+  min-height: 100vh;
+  margin-bottom: 0;
+  padding: var(--edge) 0;
+  display: flex; flex-direction: column; justify-content: center;
+}
+html.paged .block > .slab--flow { min-height: calc(100vh - var(--edge) * 2); }
+html.paged .block > .slab--flow:not(.page-hero):not(.next-case):not(.contact-grid):not(.cta-block):not(.slab--tall) {
+  display: flex; flex-direction: column; justify-content: center;
+}
+html.paged .block > .cta-block, html.paged .block > .page-hero { align-content: center; }
 body {
   margin: 0;
   background: var(--black);
@@ -1000,6 +1013,7 @@ a.work--grid:hover, a.work--grid:focus-visible { border-color: var(--line-strong
 }
 .footer-top { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); }
 .footer-brand { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-lead); }
+.footer-tag { font-size: var(--fs-body-lg); color: var(--body); margin-right: auto; }
 .footer-brand svg { width: max(22px, 1.8cqw); height: auto; }
 .footer-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-5); margin-top: var(--sp-6); }
 .footer-col { display: grid; align-content: start; gap: var(--sp-2); font-size: var(--fs-body); line-height: 1.45; color: var(--body); }
