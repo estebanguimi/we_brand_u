@@ -275,47 +275,80 @@
   }
 
   /* -------------------------------------------------------------------
-     Scroll de vista en vista (solo escritorio, donde cada sección mide
-     una pantalla). Un gesto de rueda/trackpad = una vista. Teclado igual.
+     Navegación por vistas (escritorio). La página NO scrollea: el <main>
+     se desplaza una pantalla entera con una transición propia. Un gesto de
+     rueda/trackpad = una vista. También teclado, swipe, rail y anclas.
+     En mobile (≤ 760px) el scroll es el normal.
      ------------------------------------------------------------------- */
   const deskMQ = matchMedia('(min-width: 761px)');
+  const docEl = document.documentElement;
+  const mainEl = $('main');
   const views = $$('[data-section]');
-  let viewLock = false;
-  let lastWheel = 0;
+  const DURATION = 1000;                 // ms, igual que la transición del CSS
+  let paged = false;
+  let page = 0;
+  let pageLock = false;
+  let lastInput = 0;
 
-  const currentView = () => {
+  views.forEach((v) => v.setAttribute('tabindex', '-1'));
+  const indexOf = (id) => views.findIndex((v) => v.id === id);
+  const nearestByScroll = () => {
     let best = 0;
     views.forEach((v, i) => {
       if (Math.abs(v.offsetTop - scrollY) < Math.abs(views[best].offsetTop - scrollY)) best = i;
     });
     return best;
   };
-  // se libera cuando terminó el desplazamiento y el gesto dejó de mandar eventos
+
+  function applyPage() {
+    mainEl.style.setProperty('--page', page);
+    setRail(views[page].id);
+  }
+  // se libera cuando terminó la transición y el gesto dejó de mandar eventos
   // (el trackpad sigue emitiendo por inercia: así un gesto no salta dos vistas)
-  const releaseLock = () => {
-    if (performance.now() - lastWheel < 220) setTimeout(releaseLock, 120);
-    else viewLock = false;
-  };
-  function goToView(i) {
+  function releaseLock() {
+    if (performance.now() - lastInput < 220) setTimeout(releaseLock, 120);
+    else pageLock = false;
+  }
+  function goToPage(i) {
     const target = Math.max(0, Math.min(views.length - 1, i));
-    if (target === currentView()) return;
-    viewLock = true;
-    views[target].scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
-    setTimeout(releaseLock, reduced() ? 50 : 750);
+    if (target === page) return;
+    page = target;
+    pageLock = true;
+    applyPage();
+    setTimeout(releaseLock, reduced() ? 60 : DURATION);
   }
 
+  function setPaged(on) {
+    if (on === paged) return;
+    if (on) {
+      page = nearestByScroll();
+      paged = true;
+      docEl.classList.add('paged');
+      window.scrollTo(0, 0);
+      applyPage();
+    } else {
+      paged = false;
+      docEl.classList.remove('paged');
+      mainEl.style.removeProperty('--page');
+      views[page].scrollIntoView({ block: 'start' });
+    }
+  }
+
+  // rueda / trackpad
   window.addEventListener('wheel', (e) => {
-    if (!deskMQ.matches || e.ctrlKey) return;            // ctrl + rueda = zoom
+    if (!paged || e.ctrlKey) return;                     // ctrl + rueda = zoom
     const ta = e.target.closest && e.target.closest('textarea');
     if (ta && ta.scrollHeight > ta.clientHeight) return; // dejar scrollear el mensaje
     e.preventDefault();
-    lastWheel = performance.now();
-    if (viewLock || Math.abs(e.deltaY) < 4) return;
-    goToView(currentView() + (e.deltaY > 0 ? 1 : -1));
+    lastInput = performance.now();
+    if (pageLock || Math.abs(e.deltaY) < 4) return;
+    goToPage(page + (e.deltaY > 0 ? 1 : -1));
   }, { passive: false });
 
+  // teclado
   window.addEventListener('keydown', (e) => {
-    if (!deskMQ.matches || e.altKey || e.ctrlKey || e.metaKey) return;
+    if (!paged || e.altKey || e.ctrlKey || e.metaKey) return;
     if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) return;
     const keys = {
       ArrowDown: 1, PageDown: 1, ArrowUp: -1, PageUp: -1,
@@ -324,9 +357,49 @@
     if (!(e.key in keys)) return;
     if (e.key === ' ' && e.target.closest && e.target.closest('button, a')) return;
     e.preventDefault();
-    if (viewLock) return;
-    goToView(currentView() + keys[e.key]);
+    if (pageLock) return;
+    goToPage(page + keys[e.key]);
   });
+
+  // swipe (pantallas táctiles grandes)
+  let touchY = null;
+  window.addEventListener('touchstart', (e) => { if (paged) touchY = e.touches[0].clientY; }, { passive: true });
+  window.addEventListener('touchmove', (e) => { if (paged) e.preventDefault(); }, { passive: false });
+  window.addEventListener('touchend', (e) => {
+    if (!paged || touchY === null) return;
+    const dy = touchY - e.changedTouches[0].clientY;
+    touchY = null;
+    if (Math.abs(dy) > 50 && !pageLock) goToPage(page + (dy > 0 ? 1 : -1));
+  });
+
+  // rail, CTAs y cualquier ancla interna (#contacto, etc.)
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const i = indexOf(a.getAttribute('href').slice(1));
+    if (i < 0) return;
+    e.preventDefault();
+    if (paged) goToPage(i);
+    else views[i].scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+    views[i].focus({ preventScroll: true });   // Tab sigue dentro de la vista elegida
+  });
+
+  // tabular a un campo de otra vista lleva a esa vista
+  document.addEventListener('focusin', (e) => {
+    if (!paged) return;
+    const sec = e.target.closest && e.target.closest('[data-section]');
+    if (sec) goToPage(indexOf(sec.id));
+  });
+  // el navegador no debe scrollear por su cuenta en modo vistas
+  window.addEventListener('scroll', () => { if (paged && scrollY !== 0) window.scrollTo(0, 0); });
+
+  // inicio (respeta un #ancla en la URL)
+  setPaged(deskMQ.matches);
+  if (paged && location.hash) {
+    const i = indexOf(location.hash.slice(1));
+    if (i > 0) { page = i; applyPage(); }
+  }
+  deskMQ.addEventListener('change', (e) => setPaged(e.matches));
 
   /* -------------------------------------------------------------------
      6 · Formulario

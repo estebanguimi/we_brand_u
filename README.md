@@ -30,7 +30,7 @@ Slots: `hero-bg` (2480×1400), `trabajo-1…5` (1080×1080), `testimonio-1…3` 
 
 ## Interacción
 
-- **Scroll de vista en vista** (escritorio): cada sección ocupa una pantalla. Un gesto de rueda o trackpad (o ↓ / ↑, Re Pág / Av Pág, espacio) lleva a la vista siguiente o anterior completa. La barra de scroll está oculta. En mobile el scroll es normal.
+- **Navegación por vistas** (escritorio): la página no scrollea. Cada sección ocupa una pantalla y un gesto de rueda o trackpad (o ↓ / ↑, Re Pág / Av Pág, espacio, swipe) desliza a la vista siguiente o anterior con una transición de 1 s. Sin barra de scroll. En mobile el scroll es normal.
 - **Servicios** y **Why work with Us?**: hover en desktop, tap en mobile/touch. La tarjeta activa se expande con descripción e ilustración y las otras se contraen. Al sacar el mouse de la sección vuelve al estado base.
 - **Why**: rueda cíclica sobre el arco (arriba = anterior, centro = activo, abajo = siguiente), como en las 3 capturas.
 - **Testimonios**: clic/tap en un lateral, swipe o flechas del teclado. Avanza solo cada 7 s cuando está en pantalla (se pausa con hover o foco).

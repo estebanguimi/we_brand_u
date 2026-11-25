@@ -28,11 +28,15 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip
 /* sin barra de scroll visible (el scroll sigue funcionando) */
 html { scrollbar-width: none; -ms-overflow-style: none; }
 html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0; height: 0; }
-/* escritorio: el scroll va de vista en vista (cada seccion es una pantalla) */
-@media (min-width: 761px) {
-  html { scroll-snap-type: y mandatory; }
-  .section { scroll-snap-align: start; scroll-snap-stop: always; }
+/* escritorio: modo vistas (lo activa js/main.js con html.paged).
+   La página no scrollea; <main> se desplaza una pantalla por vista. */
+html.paged, html.paged body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+html.paged main {
+  transform: translate3d(0, calc(var(--page, 0) * -100vh), 0);
+  transition: transform 1s cubic-bezier(.76, 0, .24, 1);
+  will-change: transform;
 }
+html.paged .section { height: 100vh; min-height: 0; }
 body {
   margin: 0;
   background: var(--black);
@@ -46,6 +50,7 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 :focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+.section:focus, .section:focus-visible { outline: none; }
 
 /* copy pendiente de confirmar: se ve igual que el resto, solo marcado en el código */
 .pending { }
