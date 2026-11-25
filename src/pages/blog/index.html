@@ -1,0 +1,36 @@
+<!--page {"path": "blog/", "title": "Blog", "description": "Articles from We Brand U on branding, technology and business growth.", "nav": "blog"} -->
+
+<!-- ============================================================
+     /blog — listado. Cada elemento de src/data/post.json es una
+     fila y una página.
+     ============================================================ -->
+<section class="block">
+  <div class="slab slab--flow page-hero page-hero--text">
+    {{> orbits-page}}
+    <div class="page-hero-text">
+      <h1 class="page-title">Blog</h1>
+      <p class="lead pending">[FALTA CONTENIDO: una línea sobre de qué escribe el blog]</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="slab slab--flow">
+    <ul class="post-list">
+      {{#each data.post}}
+      <li class="post-row">
+        <a href="{{base}}blog/{{it.slug}}/">
+          <div class="slot" data-slot="{{it.slug}}-portada"></div>
+          <div class="post-meta">
+            <span class="prose-meta">{{it.date}}</span>
+            <h2 class="post-title">{{it.title}}</h2>
+            <p class="post-excerpt">{{it.excerpt}}</p>
+          </div>
+        </a>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>
+
+{{> cta}}

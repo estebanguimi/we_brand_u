@@ -29,6 +29,30 @@ window.WBU_IMAGES = {
   'testimonio-2': { src: '', w: 480, h: 480, alt: 'Sofía Ramírez' },
   'testimonio-3': { src: '', w: 480, h: 480, alt: 'Mariana López' },
 
+  // ---------------------------------------------------------------
+  // PÁGINAS INTERNAS
+  // ---------------------------------------------------------------
+
+  // /trabajo — un juego de slots por caso: '<slug>-portada' y '<slug>-pieza-N'.
+  // Al copiar el caso plantilla, duplicá estas líneas con el slug nuevo.
+  'caso-ejemplo-portada': { src: '', w: 1600, h: 900,  alt: '' }, // grilla y hero del caso
+  'caso-ejemplo-pieza-1': { src: '', w: 1080, h: 1080, alt: '' },
+  'caso-ejemplo-pieza-2': { src: '', w: 1080, h: 1080, alt: '' },
+  'caso-ejemplo-pieza-3': { src: '', w: 1080, h: 1080, alt: '' },
+  'caso-ejemplo-pieza-4': { src: '', w: 1080, h: 1080, alt: '' },
+
+  // /nosotros — fotos del equipo (cuadradas)
+  'equipo-1':     { src: '', w: 480, h: 480, alt: '' },
+  'equipo-2':     { src: '', w: 480, h: 480, alt: '' },
+  'equipo-3':     { src: '', w: 480, h: 480, alt: '' },
+  'equipo-4':     { src: '', w: 480, h: 480, alt: '' },
+  'equipo-5':     { src: '', w: 480, h: 480, alt: '' },
+  'equipo-6':     { src: '', w: 480, h: 480, alt: '' },
+
+  // /blog — un slot por artículo: '<slug>-portada' (listado y artículo).
+  // Al copiar el artículo plantilla, duplicá esta línea con el slug nuevo.
+  'post-ejemplo-portada': { src: '', w: 1600, h: 900, alt: '' },
+
   // Open Graph — la imagen que aparece al compartir cualquier página.
   // Sin src, build.mjs usa img/placeholders/og-default.png (placeholder).
   // Ruta relativa a la raíz del sitio, p. ej. 'img/og.jpg'.

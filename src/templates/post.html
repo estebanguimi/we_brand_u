@@ -1,0 +1,38 @@
+<!--page {"path": "blog/{{item.slug}}/", "title": "{{item.title}}", "description": "{{item.description}}", "nav": "blog", "ogType": "article"} -->
+
+<!-- ============================================================
+     ARTÍCULO — plantilla. Para sumar uno:
+       1. agregá un elemento en src/data/post.json (slug, title, date, excerpt, description)
+       2. su portada va en js/imagenes.js ('<slug>-portada')
+       3. el cuerpo de cada artículo va acá como [FALTA CONTENIDO];
+          con más de un artículo, el cuerpo pasa a un archivo por artículo.
+     El cuerpo usa el escalón de 20 px (--fs-ui), misma familia y peso.
+     ============================================================ -->
+<section class="block">
+  <div class="slab slab--flow page-hero page-hero--text">
+    {{> orbits-page}}
+    <div class="page-hero-text">
+      <a href="{{base}}blog/" class="k">Blog</a>
+      <h1 class="page-title">{{item.title}}</h1>
+      <p class="prose-meta">{{item.date}}</p>
+    </div>
+  </div>
+</section>
+
+<article class="block block--prose">
+  <div class="prose">
+    <div class="slot" data-slot="{{item.slug}}-portada"></div>
+    <p class="pending">[FALTA CONTENIDO: párrafo de apertura]</p>
+    <h2 class="pending">[FALTA CONTENIDO: subtítulo]</h2>
+    <p class="pending">[FALTA CONTENIDO: párrafo]</p>
+    <ul>
+      <li class="pending">[FALTA CONTENIDO: punto 1]</li>
+      <li class="pending">[FALTA CONTENIDO: punto 2]</li>
+    </ul>
+    <blockquote><p class="pending">[FALTA CONTENIDO: cita destacada]</p></blockquote>
+    <h3 class="pending">[FALTA CONTENIDO: subtítulo menor]</h3>
+    <p class="pending">[FALTA CONTENIDO: párrafo de cierre]</p>
+  </div>
+</article>
+
+{{> cta}}

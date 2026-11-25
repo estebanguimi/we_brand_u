@@ -813,6 +813,7 @@ main { display: block; }
 .lead { font-size: var(--fs-body-lg); line-height: var(--lh-body); color: var(--body); }
 .text { font-size: var(--fs-body-lg); line-height: var(--lh-body); color: var(--body); max-width: 62cqw; }
 .text + .text { margin-top: var(--sp-3); }
+.text + .cards, .cards + .text { margin-top: var(--sp-5); }
 .k { color: var(--accent); font-size: var(--fs-small); line-height: 1; }   /* rótulo corto: "Month 1" */
 .pill-row { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
 .pill-row--center { justify-content: center; }
@@ -926,6 +927,67 @@ main { display: block; }
 .wizard-nav [hidden] { display: inline-flex; visibility: hidden; }
 .wizard-done { display: grid; gap: var(--sp-4); }
 .wizard-done[hidden] { display: none; }
+
+/* --- Grilla de casos: la tarjeta .work del home, variante en grilla ----- */
+.work--grid { position: relative; width: auto; display: block; border-radius: var(--r-card); border: 1px solid var(--line); }
+.work--grid .slot { border-radius: var(--r-card) var(--r-card) 0 0; }
+.work--grid .work-bar { height: auto; padding: var(--sp-3) var(--sp-3) 0; }
+.work-caption { display: grid; gap: var(--sp-1); padding: var(--sp-2) var(--sp-3) var(--sp-4); }
+.work-client { font-size: var(--fs-ui-lg); line-height: var(--lh-title); }
+.work-sector { font-size: var(--fs-small); color: var(--dim); }
+a.work--grid { transition: border-color var(--dur-1); }
+a.work--grid:hover, a.work--grid:focus-visible { border-color: var(--line-strong); }
+.case-note { margin-top: var(--sp-4); font-size: var(--fs-small); color: var(--dim); }
+
+/* --- Resultados con números ------------------------------------------- */
+.stat-num { font-size: var(--fs-display-2); line-height: 1; color: var(--accent); }
+
+/* --- Piezas de un caso / fotos de equipo -------------------------------- */
+.card > .slot { border-radius: var(--r-sm); }
+.pieces { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); gap: var(--sp-4); }
+.pieces .slot { border-radius: var(--r-card); }
+.next-case { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-5); }
+.next-case .page-title { font-size: var(--fs-title); }
+
+/* --- Out of the Box: la misma gramática, más extrema -------------------- */
+/* más aire: cada bloque ocupa una pantalla; titular en la escala máxima  */
+.slab--tall { min-height: calc(100vh - var(--edge) * 2); display: grid; align-content: center; }
+.page-title--xl { font-size: var(--fs-display); line-height: var(--lh-display); }
+/* el verde con más superficie: losa verde con texto en el tono de la losa */
+.slab--accent { background: var(--accent); color: var(--slab); }
+.slab--accent .lead, .slab--accent .k { color: var(--slab); }
+.slab--accent .pill { border-color: var(--slab); }
+.idea-num { font-size: var(--fs-display); line-height: 1; color: var(--accent); }
+
+/* --- Listado de artículos ----------------------------------------------- */
+.post-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.post-row { border-bottom: 1px solid var(--line); }
+.post-row a {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--sp-5);
+  padding: var(--sp-5) 0;
+}
+.post-row .slot { border-radius: var(--r-card); }
+.post-meta { display: grid; align-content: start; gap: var(--sp-3); }
+.post-title { font-size: var(--fs-title); line-height: var(--lh-title); transition: color var(--dur-1); }
+.post-row a:hover .post-title { color: var(--accent); }
+.post-excerpt { font-size: var(--fs-body-lg); line-height: var(--lh-body); color: var(--body); max-width: 50cqw; }
+
+/* --- Texto largo (artículo y legales): fuera de losa, para que respire ---- */
+.block--prose { container-type: inline-size; padding: var(--sp-5) 0; }
+.prose { max-width: 62cqw; }
+.prose > * + * { margin-top: var(--sp-4); }
+.prose p, .prose li { font-size: var(--fs-ui); line-height: var(--lh-body); color: var(--body); }
+.prose h2 { font-size: var(--fs-title); line-height: var(--lh-title); margin: var(--sp-6) 0 0; }
+.prose h3 { font-size: var(--fs-lead); line-height: var(--lh-title); margin: var(--sp-5) 0 0; }
+.prose ul, .prose ol { padding-left: var(--sp-4); }
+.prose li + li { margin-top: var(--sp-2); }
+.prose a { color: var(--accent); }
+.prose blockquote { border-left: 1px solid var(--line-strong); padding-left: var(--sp-4); }
+.prose blockquote p { color: var(--text); }
+.prose .slot { border-radius: var(--r-card); }
+.prose-meta { font-size: var(--fs-small); color: var(--dim); }
+/* encabezado de página de texto plano (legales): sin arcos ni ilustración */
+.page-head { display: grid; gap: var(--sp-3); padding-top: var(--sp-5); }
 
 /* --- Footer ------------------------------------------------------------- */
 .site-footer {
@@ -1122,5 +1184,10 @@ html.paged .site-footer { padding-top: var(--sp-6); }
   .chips { grid-template-columns: 1fr 1fr; }
   .site-footer { margin: 0 14px; padding: 28px 0 20px; }
   .footer-top { flex-direction: column; align-items: flex-start; }
+  .slab--tall { min-height: 0; }
+  .next-case { flex-direction: column; align-items: flex-start; }
+  .pieces { grid-template-columns: 1fr; }
+  .post-row a { grid-template-columns: 1fr; }
+  .post-excerpt, .prose { max-width: none; }
   .footer-cols { grid-template-columns: 1fr 1fr; }
 }

@@ -50,10 +50,21 @@ Abrir http://localhost:8000.
 | `/servicios/branding-marketing/`, `/tech-automation/`, `/business-growth/` | Plantilla única (`src/templates/servicio.html`) |
 | `/programa/` | El programa de 3 meses |
 | `/contacto/` | Evaluación gratuita en 4 pasos |
-| `/out-of-the-box/`, `/trabajo/`, `/nosotros/` | Provisorias (Fase 2) |
-| `/blog/`, `/privacidad/`, `/terminos/` | Provisorias (Fase 3) |
+| `/trabajo/` | Grilla de casos (un elemento por caso en `src/data/caso.json`) |
+| `/trabajo/caso-ejemplo/` | Caso plantilla (`src/templates/caso.html`) |
+| `/nosotros/` | Pods, filosofía, equipo |
+| `/out-of-the-box/` | División premium (la única página "audaz") |
+| `/blog/` | Listado (`src/data/post.json`) |
+| `/blog/post-ejemplo/` | Artículo plantilla (`src/templates/post.html`) |
+| `/privacidad/`, `/terminos/` | Legales, texto plano |
 
 Los links internos se escriben `{{base}}ruta/` y el build los vuelve relativos, así funcionan en `github.io/we_brand_u/` y en un dominio propio. Si cambiás de dominio, actualizá `url` en `src/site.json` (lo usan el sitemap y Open Graph).
+
+## Sumar un caso o un artículo
+
+1. Agregá un elemento en `src/data/caso.json` (o `post.json`) con su `slug`.
+2. Sumá sus imágenes en `js/imagenes.js` (`<slug>-portada`, y para casos `<slug>-pieza-1…4`).
+3. `node build.mjs`: aparece en la grilla/listado, tiene su página, y el "siguiente caso" se enlaza solo.
 
 ## Cambiar las imágenes
 

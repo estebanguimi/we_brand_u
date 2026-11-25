@@ -1,0 +1,33 @@
+<!--page {"path": "trabajo/", "title": "Our Work", "description": "Case studies from We Brand U: the client, the challenge, what we did and the results.", "nav": "trabajo"} -->
+
+<!-- ============================================================
+     /trabajo — grilla preparada para N casos. Cada elemento de
+     src/data/caso.json genera una tarjeta y su página.
+     ============================================================ -->
+<section class="block">
+  <div class="slab slab--flow page-hero page-hero--text">
+    {{> orbits-page}}
+    <div class="page-hero-text">
+      <h1 class="page-title">See Our Work<br>in Action</h1>
+      <p class="lead pending">[FALTA CONTENIDO: una línea de introducción a los casos]</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="slab slab--flow">
+    <div class="cards" style="--cols: 3">
+      {{#each data.caso}}
+      <a href="{{base}}trabajo/{{it.slug}}/" class="work work--grid">
+        <div class="slot" data-slot="{{it.slug}}-portada"></div>
+        <div class="work-caption">
+          <span class="work-client">{{it.client}}</span>
+          <span class="work-sector">{{it.sector}}</span>
+        </div>
+      </a>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+{{> cta}}

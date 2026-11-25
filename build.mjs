@@ -13,6 +13,10 @@
      {{> nombre}}                incluye src/partials/nombre.html
      {{clave}} / {{a.b}}         variable (de la página, del sitio o de datos)
      {{base}}                    prefijo relativo a la raíz ("", "../", …)
+     {{#each data.caso}}…{{/each}}  repite el bloque por cada elemento;
+                                 adentro, {{it.campo}} es el elemento
+     data.<archivo>              cualquier src/data/<archivo>.json
+     next                        en páginas de plantilla: el elemento siguiente
 
    Los links internos se escriben siempre como {{base}}ruta/ para que
    funcionen igual en estebanguimi.github.io/we_brand_u/ y en un dominio.
@@ -51,6 +55,11 @@ function render(tpl, ctx) {
   let out = tpl;
   for (let pass = 0; pass < 8; pass++) {
     const before = out;
+    out = out.replace(/\{\{#each\s+([\w.-]+)\s*\}\}([\s\S]*?)\{\{\/each\}\}/g, (m, key, inner) => {
+      const list = lookup(ctx, key);
+      if (!Array.isArray(list)) throw new Error(`#each sin lista: ${key}`);
+      return list.map((it) => render(inner, { ...ctx, it })).join('');
+    });
     out = out.replace(/\{\{>\s*([\w-]+)\s*\}\}/g, (m, name) => {
       if (!(name in partials)) throw new Error(`partial inexistente: ${name}`);
       return partials[name];
@@ -96,6 +105,12 @@ function railHtml(active) {
 </nav>`;
 }
 
+/* ---------- datos: src/data/*.json disponibles como data.<nombre> ---------- */
+const data = {};
+for (const f of fs.readdirSync(path.join(SRC, 'data'))) {
+  if (f.endsWith('.json')) data[f.replace(/\.json$/, '')] = JSON.parse(read(path.join(SRC, 'data', f)));
+}
+
 /* ---------- páginas ---------- */
 const pages = [];
 function addPage(meta, body, extraCtx = {}) {
@@ -114,10 +129,11 @@ for (const f of fs.readdirSync(path.join(SRC, 'templates'))) {
   const name = f.replace(/\.html$/, '');
   const { meta, body } = parsePage(path.join(SRC, 'templates', f));
   const items = JSON.parse(read(path.join(SRC, 'data', `${name}.json`)));
-  for (const item of items) {
-    const m = JSON.parse(render(JSON.stringify(meta), { item }));
-    addPage(m, body, { item });
-  }
+  items.forEach((item, i) => {
+    const next = items[(i + 1) % items.length];
+    const m = JSON.parse(render(JSON.stringify(meta), { item, next }));
+    addPage(m, body, { item, next });
+  });
 }
 
 const layout = read(path.join(SRC, 'layout.html'));
@@ -135,7 +151,7 @@ for (const { meta, body, extraCtx } of pages) {
   const og = ogImage();
   const ctx = {
     ...extraCtx,
-    site, version, base,
+    site, version, base, data,
     page: {
       ...meta,
       fullTitle: meta.path ? `${meta.title} — ${site.name}` : meta.title,

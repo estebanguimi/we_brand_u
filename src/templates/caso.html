@@ -1,0 +1,84 @@
+<!--page {"path": "trabajo/{{item.slug}}/", "title": "{{item.client}}", "description": "{{item.description}}", "nav": "trabajo", "ogType": "article"} -->
+
+<!-- ============================================================
+     CASO — plantilla. Para sumar un caso:
+       1. agregá un elemento en src/data/caso.json (slug, client, sector, description)
+       2. sumá sus imágenes en js/imagenes.js ('<slug>-portada', '<slug>-pieza-1…4')
+       3. el texto de cada caso va en esta plantilla como [FALTA CONTENIDO];
+          si los casos necesitan textos distintos, se pasan a caso.json.
+     ============================================================ -->
+
+<!-- 1 · Cliente y rubro -->
+<section class="block">
+  <div class="slab slab--flow page-hero">
+    {{> orbits-page}}
+    <div class="page-hero-text">
+      <a href="{{base}}trabajo/" class="k">Our Work</a>
+      <h1 class="page-title">{{item.client}}</h1>
+      <p class="lead">{{item.sector}}</p>
+    </div>
+    <div class="page-hero-art">
+      <div class="slot" data-slot="{{item.slug}}-portada"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · El problema -->
+<section class="block">
+  <div class="slab slab--flow">
+    <div class="block-head"><h2 class="title">The challenge</h2></div>
+    <p class="text pending">[FALTA CONTENIDO: el problema del cliente]</p>
+  </div>
+</section>
+
+<!-- 3 · Qué hicimos -->
+<section class="block">
+  <div class="slab slab--flow">
+    <div class="block-head"><h2 class="title">What we did</h2></div>
+    <p class="text pending">[FALTA CONTENIDO: qué hicimos]</p>
+    <div class="cards" style="--cols: 3">
+      <article class="card"><h3 class="card-title pending">[FALTA CONTENIDO: acción 1]</h3><p class="card-text pending">[FALTA CONTENIDO]</p></article>
+      <article class="card"><h3 class="card-title pending">[FALTA CONTENIDO: acción 2]</h3><p class="card-text pending">[FALTA CONTENIDO]</p></article>
+      <article class="card"><h3 class="card-title pending">[FALTA CONTENIDO: acción 3]</h3><p class="card-text pending">[FALTA CONTENIDO]</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Resultado, con números cuando los haya -->
+<section class="block">
+  <div class="slab slab--flow">
+    <div class="block-head"><h2 class="title">Results</h2></div>
+    <div class="cards" style="--cols: 3">
+      <article class="card"><p class="stat-num pending">[N]</p><p class="card-text pending">[FALTA CONTENIDO: qué mide el número 1]</p></article>
+      <article class="card"><p class="stat-num pending">[N]</p><p class="card-text pending">[FALTA CONTENIDO: qué mide el número 2]</p></article>
+      <article class="card"><p class="stat-num pending">[N]</p><p class="card-text pending">[FALTA CONTENIDO: qué mide el número 3]</p></article>
+    </div>
+    <p class="text pending">[FALTA CONTENIDO: resultado en palabras, si no hay números]</p>
+  </div>
+</section>
+
+<!-- 5 · Las piezas -->
+<section class="block">
+  <div class="slab slab--flow">
+    <div class="block-head"><h2 class="title">The work</h2></div>
+    <div class="pieces" style="--cols: 4">
+      <div class="slot" data-slot="{{item.slug}}-pieza-1"></div>
+      <div class="slot" data-slot="{{item.slug}}-pieza-2"></div>
+      <div class="slot" data-slot="{{item.slug}}-pieza-3"></div>
+      <div class="slot" data-slot="{{item.slug}}-pieza-4"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Siguiente caso (con un solo caso, vuelve a sí mismo) -->
+<section class="block">
+  <div class="slab slab--flow next-case">
+    <div class="page-hero-text">
+      <span class="k">Next case</span>
+      <p class="page-title">{{next.client}}</p>
+    </div>
+    <a href="{{base}}trabajo/{{next.slug}}/" class="pill">View case</a>
+  </div>
+</section>
+
+{{> cta}}

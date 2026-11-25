@@ -485,6 +485,12 @@
       if (done) done.hidden = false;
     });
     wizard.addEventListener('input', (e) => e.target.classList && e.target.classList.remove('is-invalid'));
+    // ?need=out-of-the-box (CTA de Out of the Box) llega con esa opción ya elegida
+    const pre = new URLSearchParams(location.search).get('need');
+    if (pre) {
+      const box = $$('input[name="need"]', wizard).find((el) => el.value === pre);
+      if (box) box.checked = true;
+    }
     show(0);
   }
 
