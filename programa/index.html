@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,600;1,900&display=swap">
-  <link rel="stylesheet" href="../css/styles.css?v=3a3e5902">
+  <link rel="stylesheet" href="../css/styles.css?v=ef7c2e17">
   <script>document.documentElement.classList.add('js'); window.WBU_BASE = '../';</script>
 </head>
 <body>
@@ -251,7 +251,8 @@
 
 <!-- 4 · Qué pasa después: soporte anual y plan Pro -->
 <section class="block" data-label="After month three" data-icon="s-after">
-  <div class="slab slab--flow">
+  <div class="slab slab--flow split">
+    <div>
     <div class="block-head">
       <h2 class="title">After month three</h2>
       <p class="lead">Your team runs it. If you want backup, there are two options.</p>
@@ -266,6 +267,21 @@
         <p class="card-text">Optional. We keep producing high-quality content every month. You just publish it.</p>
       </article>
     </div>
+    </div>
+    <div class="split-art ill-stage" data-play-on-view aria-hidden="true"><svg viewBox="0 0 400 400" class="ill ill-after">
+  <circle cx="200" cy="230" r="150" fill="url(#g-glow)" opacity=".45"/>
+  <path d="M200 70V200" class="af-line"/>
+  <path d="M200 70V200" pathLength="100" class="af-pulse" style="--k:0"/>
+  <path d="M200 230Q120 260 92 320" class="af-line af-line--opt"/>
+  <path d="M200 230Q280 260 308 320" class="af-line af-line--opt"/>
+  <path d="M200 230Q120 260 92 320" pathLength="100" class="af-pulse" style="--k:1"/>
+  <path d="M200 230Q280 260 308 320" pathLength="100" class="af-pulse" style="--k:2"/>
+  <g transform="translate(200 56)"><circle r="16" class="af-node"/><text y="-26" text-anchor="middle" class="af-cap">Handover</text></g>
+  <g transform="translate(200 222)"><circle r="40" class="af-team"/><svg x="-20" y="-20" width="40" height="40" viewBox="0 0 24 24" class="af-ico"><use href="#p-nosotros"/></svg><text y="66" text-anchor="middle" class="af-cap af-cap--on">Your team runs it</text></g>
+  <g transform="translate(92 330)"><circle r="22" class="af-opt"/><svg x="-12" y="-12" width="24" height="24" viewBox="0 0 24 24" class="af-ico af-ico--dim"><use href="#s-after"/></svg><text y="44" text-anchor="middle" class="af-cap">Support</text></g>
+  <g transform="translate(308 330)"><circle r="22" class="af-opt"/><svg x="-12" y="-12" width="24" height="24" viewBox="0 0 24 24" class="af-ico af-ico--dim"><use href="#s-idea"/></svg><text y="44" text-anchor="middle" class="af-cap">Pro Plan</text></g>
+</svg>
+</div>
   </div>
 </section>
 
@@ -316,9 +332,12 @@
 
 <!-- 6 · Preguntas frecuentes -->
 <section class="block" data-label="FAQ" data-icon="s-faq">
-  <div class="slab slab--flow">
+  <div class="slab slab--flow split split--faq">
     <div class="block-head">
       <h2 class="title">FAQ</h2>
+      <p class="lead">Straight answers. If yours isn’t here, ask us.</p>
+      <a href="../contacto/" class="pill">Ask a question</a>
+      <span class="big-ico big-ico--faq" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#s-faq"/></svg></span>
     </div>
     <div class="faq">
       <div class="faq-item">
@@ -426,7 +445,20 @@
 
 </main>
 
-<script src="../js/imagenes.js?v=3a3e5902"></script>
-<script src="../js/main.js?v=3a3e5902"></script>
+<template id="tpl-orbits"><svg class="orbits orbits--corner" viewBox="0 0 1240 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <circle cx="1180" cy="640" r="260" fill="url(#g-glow)" opacity=".3"/>
+  <g class="spin spin--slow" style="transform-origin:1180px 640px">
+    <circle cx="1180" cy="640" r="250" class="arc" stroke-dasharray="900 671"/>
+  </g>
+  <g class="spin spin--slower spin--rev" style="transform-origin:1180px 640px">
+    <circle cx="1180" cy="640" r="420" class="arc" stroke-dasharray="1400 1239"/>
+  </g>
+  <g class="spin spin--slowest" style="transform-origin:1180px 640px">
+    <circle cx="1180" cy="640" r="610" class="arc" stroke-dasharray="1600 2233"/>
+  </g>
+</svg>
+</template>
+<script src="../js/imagenes.js?v=ef7c2e17"></script>
+<script src="../js/main.js?v=ef7c2e17"></script>
 </body>
 </html>

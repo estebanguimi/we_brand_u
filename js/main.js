@@ -531,6 +531,19 @@
     applyPage();
   });
 
+  /* Arcos orbitales en cada losa de contenido que no los tenga: ninguna
+     vista queda plana. Alternan de esquina. */
+  const tplOrbits = $('#tpl-orbits');
+  if (tplOrbits && !document.body.hasAttribute('data-paged')) {
+    $$('main > .block > .slab--flow')
+      .filter((s) => !s.querySelector(':scope > .orbits') && !s.classList.contains('slab--accent'))
+      .forEach((s, n) => {
+        const svg = tplOrbits.content.firstElementChild.cloneNode(true);
+        if (n % 2) svg.classList.add('orbits--flip');
+        s.prepend(svg);
+      });
+  }
+
   /* -------------------------------------------------------------------
      Ilustraciones de servicio fuera del home (hero de cada servicio):
      mismo código; se expanden y animan una vez al entrar en vista.
@@ -638,10 +651,13 @@
         // forma de onda: más alta al centro, con vibración mientras "gritás"
         const shape = 0.55 + 0.45 * Math.sin(Math.PI * x);
         const jitter = down ? 0.12 * Math.sin(t / 70 + k * 1.7) : 0;
-        const h = Math.max(0.04, Math.min(1, level * shape + jitter * level));
+        const idle = 0.07 + 0.09 * shape;                  // en reposo: una onda baja que respira (CSS)
+        const h = Math.max(idle, Math.min(1, level * shape + jitter * level));
         el.style.setProperty('--h', `${(h * 100).toFixed(1)}%`);
-        el.classList.toggle('is-on', h > 0.06);
+        el.style.setProperty('--k', k);
+        el.classList.toggle('is-on', true);
       });
+      box.classList.toggle('is-live', level > 0.02 || down);
     };
     const frame = (t) => {
       const dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016;

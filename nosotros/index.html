@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,600;1,900&display=swap">
-  <link rel="stylesheet" href="../css/styles.css?v=3a3e5902">
+  <link rel="stylesheet" href="../css/styles.css?v=ef7c2e17">
   <script>document.documentElement.classList.add('js'); window.WBU_BASE = '../';</script>
 </head>
 <body>
@@ -192,12 +192,32 @@
 
 <!-- 2 · La filosofía -->
 <section class="block" data-label="Talent over titles" data-icon="s-idea">
-  <div class="slab slab--flow">
-    <div class="block-head">
-      <h2 class="title">Talent over titles</h2>
+  <div class="slab slab--flow split">
+    <div>
+      <div class="block-head">
+        <h2 class="title">Talent over titles</h2>
+      </div>
+      <p class="text">We hire people with real talent and no formal degree. People whose current jobs give them no creative freedom.</p>
+      <p class="text">Underused people. That’s our advantage, not a compromise.</p>
     </div>
-    <p class="text">We hire people with real talent and no formal degree. People whose current jobs give them no creative freedom.</p>
-    <p class="text">Underused people. That’s our advantage, not a compromise.</p>
+    <div class="split-art ill-stage" data-play-on-view aria-hidden="true"><svg viewBox="0 0 400 400" class="ill ill-talent">
+  <g class="tl-title">
+    <rect x="30" y="140" width="140" height="104" rx="12" class="tl-card"/>
+    <rect x="52" y="164" width="96" height="10" rx="5" class="tl-line"/>
+    <rect x="52" y="186" width="70" height="8" rx="4" class="tl-line"/>
+    <circle cx="132" cy="218" r="12" class="tl-seal"/>
+    <path d="M24 250L176 134" pathLength="1" class="tl-strike"/>
+    <text x="100" y="276" text-anchor="middle" class="tl-cap">Title</text>
+  </g>
+  <path d="M190 192H222" class="tl-arrow"/><path d="M216 184L226 192L216 200Z" class="tl-arrowhead"/>
+  <g class="tl-bulb">
+    <circle cx="300" cy="186" r="92" fill="url(#g-glow)" class="tl-glow"/>
+    <g class="tl-rays"><path d="M300 92V108M300 264V280M206 186H222M378 186H394M234 120L245 131M355 241L366 252M366 120L355 131M245 241L234 252"/></g>
+    <svg x="252" y="138" width="96" height="96" viewBox="0 0 24 24" class="tl-ico"><use href="#s-idea"/></svg>
+    <text x="300" y="276" text-anchor="middle" class="tl-cap tl-cap--on">Talent</text>
+  </g>
+</svg>
+</div>
   </div>
 </section>
 
@@ -313,7 +333,20 @@
 
 </main>
 
-<script src="../js/imagenes.js?v=3a3e5902"></script>
-<script src="../js/main.js?v=3a3e5902"></script>
+<template id="tpl-orbits"><svg class="orbits orbits--corner" viewBox="0 0 1240 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <circle cx="1180" cy="640" r="260" fill="url(#g-glow)" opacity=".3"/>
+  <g class="spin spin--slow" style="transform-origin:1180px 640px">
+    <circle cx="1180" cy="640" r="250" class="arc" stroke-dasharray="900 671"/>
+  </g>
+  <g class="spin spin--slower spin--rev" style="transform-origin:1180px 640px">
+    <circle cx="1180" cy="640" r="420" class="arc" stroke-dasharray="1400 1239"/>
+  </g>
+  <g class="spin spin--slowest" style="transform-origin:1180px 640px">
+    <circle cx="1180" cy="640" r="610" class="arc" stroke-dasharray="1600 2233"/>
+  </g>
+</svg>
+</template>
+<script src="../js/imagenes.js?v=ef7c2e17"></script>
+<script src="../js/main.js?v=ef7c2e17"></script>
 </body>
 </html>

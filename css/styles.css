@@ -109,7 +109,7 @@ html.paged .block {
   display: flex; flex-direction: column; justify-content: center;
 }
 html.paged .block > .slab--flow { min-height: calc(100vh - var(--edge) * 2); }
-html.paged .block > .slab--flow:not(.page-hero):not(.next-case):not(.contact-grid):not(.cta-block):not(.slab--tall) {
+html.paged .block > .slab--flow:not(.page-hero):not(.next-case):not(.contact-grid):not(.cta-block):not(.slab--tall):not(.split) {
   display: flex; flex-direction: column; justify-content: center;
 }
 html.paged .block > .cta-block, html.paged .block > .page-hero { align-content: center; }
@@ -1290,6 +1290,83 @@ a.work--grid:hover, a.work--grid:focus-visible { border-color: var(--line-strong
 
 .svc-problem { margin-top: var(--sp-2); max-width: 40cqw; gap: var(--sp-1); }
 
+/* =====================================================================
+   NINGUNA VISTA PLANA — arcos en cada losa, vistas en dos columnas
+   ===================================================================== */
+.slab--flow > :not(.orbits) { position: relative; z-index: 1; }
+.orbits--corner { opacity: .85; }
+.orbits--flip { transform: scaleX(-1); }
+.slab--accent .orbits--corner { display: none; }
+
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); gap: var(--sp-6); align-items: center; }
+.slab--tall.split { display: grid; }
+.split--faq { grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); align-items: start; }
+.split--faq .block-head { justify-items: start; margin-bottom: 0; }
+.split--faq .faq { max-width: none; }
+.split-art { max-width: none; justify-self: center; width: min(100%, 40cqw); }
+.split-art .ill { width: 100%; height: auto; display: block; overflow: visible; }
+.split-art--icon { display: grid; place-items: center; }
+.big-ico {
+  position: relative;
+  display: grid; place-items: center;
+  width: 20cqw; height: 20cqw;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--glow), transparent);
+}
+.big-ico svg { width: 48%; height: 48%; fill: var(--accent); filter: drop-shadow(0 0 10px rgba(0, 202, 113, .55));
+  animation: wcFloat 4s ease-in-out infinite alternate; }
+.big-ico--faq { width: 12cqw; height: 12cqw; margin-top: var(--sp-5); }
+
+/* Out of the Box · una pieza se sale de la caja */
+.ob-frame { fill: none; stroke: var(--line); stroke-width: 1.5; }
+.ob-cell { fill: var(--card); stroke: rgba(255, 255, 255, .04); }
+.ob-hole { fill: none; stroke: var(--line-strong); stroke-dasharray: 5 5; }
+.ob-pop { fill: var(--accent); filter: drop-shadow(0 0 12px rgba(0, 202, 113, .8)); }
+.ob-out { transform-box: fill-box; transform-origin: center; animation: obOut 4.8s var(--ease) infinite; }
+@keyframes obOut {
+  0%, 12% { transform: none; }
+  40%, 82% { transform: translate(78px, -96px) rotate(18deg) scale(1.35); }
+  100% { transform: none; }
+}
+.js .ill-outbox .ob-cell { opacity: 0; }
+.js .ill-outbox.play .ob-cell { animation: pop .4s forwards; animation-delay: calc(var(--k) * .025s); }
+
+/* Nosotros · el título se tacha, el talento se enciende */
+.tl-card { fill: var(--card); stroke: var(--line); }
+.tl-line { fill: var(--gray-dot); }
+.tl-seal { fill: var(--gray-ghost); }
+.tl-strike { fill: none; stroke: var(--text); stroke-width: 4; stroke-linecap: round; }
+.tl-cap { fill: var(--dim); font: 600 16px var(--font); }
+.tl-cap--on { fill: var(--accent); }
+.tl-arrow { stroke: var(--line-strong); stroke-width: 2; }
+.tl-arrowhead { fill: var(--accent); }
+.tl-rays path { stroke: var(--accent); stroke-width: 4; stroke-linecap: round; }
+.tl-ico { fill: var(--accent); filter: drop-shadow(0 0 10px rgba(0, 202, 113, .7)); }
+.js .ill-talent .tl-strike { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.js .ill-talent .tl-title { transition: opacity var(--dur-3); }
+.js .ill-talent.play .tl-strike { animation: draw var(--dur-2) var(--ease) .4s forwards; }
+.js .ill-talent.play .tl-title { opacity: .45; transition-delay: .9s; }
+.tl-rays { transform-box: fill-box; transform-origin: center; animation: raysPulse 2.4s ease-in-out infinite; }
+.tl-glow { animation: raysPulse 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes raysPulse { 0%, 100% { opacity: .35; transform: scale(.94); } 50% { opacity: 1; transform: scale(1.04); } }
+
+/* Programa · después del mes tres */
+.af-line { stroke: var(--accent); stroke-opacity: .5; stroke-width: 2; fill: none; }
+.af-line--opt { stroke-dasharray: 6 7; }
+.af-pulse { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 8 92;
+  filter: drop-shadow(0 0 5px rgba(0, 202, 113, .9)); animation: podPulse 2.4s linear infinite; animation-delay: calc(var(--k) * -.8s); }
+.af-node { fill: var(--accent); }
+.af-team { fill: var(--bubble); stroke: var(--line-strong); stroke-width: 2; filter: drop-shadow(0 0 14px rgba(0, 202, 113, .35)); }
+.af-opt { fill: var(--bubble); stroke: var(--line); stroke-width: 1.5; }
+.af-ico { fill: var(--accent); }
+.af-ico--dim { fill: var(--gray-hover); }
+.af-cap { fill: var(--dim); font: 600 14px var(--font); }
+.af-cap--on { fill: var(--text); font-size: 16px; }
+
+/* Out of the Box · el medidor respira aunque no lo toques */
+.shout:not(.is-live) .shout-bars i { transform-origin: bottom; animation: eqIdle 1.3s ease-in-out infinite alternate; animation-delay: calc(var(--k) * -.11s); }
+@keyframes eqIdle { from { transform: scaleY(.45); } to { transform: scaleY(1.25); } }
+
 /* --- Footer ------------------------------------------------------------- */
 .site-footer {
   position: relative;
@@ -1509,6 +1586,10 @@ html.paged .site-footer { padding-top: var(--sp-6); }
   .shout-meter { height: 200px; }
   .slab--tall:has(.ootb-art) { grid-template-columns: 1fr; }
   .contact-art { max-width: 280px; }
+  .split, .split--faq { grid-template-columns: 1fr; }
+  .split-art { width: min(100%, 300px); }
+  .big-ico { width: 180px; height: 180px; }
+  .big-ico--faq { display: none; }
   .footer-cols { grid-template-columns: 1fr 1fr; }
 }
 

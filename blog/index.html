@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,600;1,900&display=swap">
-  <link rel="stylesheet" href="../css/styles.css?v=3a3e5902">
+  <link rel="stylesheet" href="../css/styles.css?v=ef7c2e17">
   <script>document.documentElement.classList.add('js'); window.WBU_BASE = '../';</script>
 </head>
 <body>
@@ -268,7 +268,20 @@
 
 </main>
 
-<script src="../js/imagenes.js?v=3a3e5902"></script>
-<script src="../js/main.js?v=3a3e5902"></script>
+<template id="tpl-orbits"><svg class="orbits orbits--corner" viewBox="0 0 1240 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <circle cx="1180" cy="640" r="260" fill="url(#g-glow)" opacity=".3"/>
+  <g class="spin spin--slow" style="transform-origin:1180px 640px">
+    <circle cx="1180" cy="640" r="250" class="arc" stroke-dasharray="900 671"/>
+  </g>
+  <g class="spin spin--slower spin--rev" style="transform-origin:1180px 640px">
+    <circle cx="1180" cy="640" r="420" class="arc" stroke-dasharray="1400 1239"/>
+  </g>
+  <g class="spin spin--slowest" style="transform-origin:1180px 640px">
+    <circle cx="1180" cy="640" r="610" class="arc" stroke-dasharray="1600 2233"/>
+  </g>
+</svg>
+</template>
+<script src="../js/imagenes.js?v=ef7c2e17"></script>
+<script src="../js/main.js?v=ef7c2e17"></script>
 </body>
 </html>
