@@ -238,6 +238,7 @@ main { display: block; }
   transition: opacity var(--dur-1) var(--ease), transform var(--dur-1) var(--ease);
 }
 .rail-link:hover .rail-tip, .rail-link:focus-visible .rail-tip { opacity: 1; transform: translate(0, -50%); }
+.rail-sep { width: 46%; height: 1px; background: var(--line); flex: none; }
 .rail-more { display: none; }
 .rail-sheet { display: none; }
 
@@ -1153,7 +1154,7 @@ html.paged .site-footer { padding-top: var(--sp-6); }
     border-radius: var(--r-card);
     border: 1px solid var(--line);
   }
-  .rail-glow-wrap, .rail-tip { display: none; }
+  .rail-glow-wrap, .rail-tip, .rail-sep { display: none; }
   .rail > .rail-link:not([data-primary]) { display: none; }
   .rail-link, .rail-more { width: 44px; height: 44px; }
   .rail-more { display: grid; place-items: center; }

@@ -82,7 +82,7 @@ function parsePage(file) {
 }
 
 /* ---------- navegación (rail + footer) ---------- */
-function railHtml(active) {
+function railHtml(active, isHome = false) {
   const link = (n, extra = '') => {
     const on = n.key === active;
     return `<a href="{{base}}${n.path}" class="rail-link${on ? ' is-active' : ''}"`
@@ -91,8 +91,19 @@ function railHtml(active) {
       + `<svg viewBox="${n.viewBox || '0 0 24 24'}" class="rail-ico${n.key === 'home' ? ' rail-ico--u' : ''}" aria-hidden="true">${n.icon}</svg>`
       + `${extra}</a>`;
   };
-  const items = site.nav.map((n) => link(n, `<span class="rail-tip">${n.label}</span>`)).join('\n    ');
-  const sheet = site.nav.map((n) => link(n, `<span class="rail-sheet-label">${n.label}</span>`)).join('\n      ');
+  let list = site.nav;
+  let lead = [];
+  if (isHome) {
+    // home: las secciones del home (con el brillo que las sigue) + páginas del sitio
+    const sec = (s, i, extra) => `<a href="#${s.target}" class="rail-link${i === 0 ? ' is-active' : ''}"`
+      + ` data-target="${s.target}"${s.primary ? ' data-primary' : ''} aria-label="${s.label}">`
+      + `<svg viewBox="${s.viewBox || '0 0 24 24'}" class="rail-ico${i === 0 ? ' rail-ico--u' : ''}" aria-hidden="true">${s.icon}</svg>${extra}</a>`;
+    lead = site.homeRail.sections.map((s, i) => [sec(s, i, `<span class="rail-tip">${s.label}</span>`), sec(s, i, `<span class="rail-sheet-label">${s.label}</span>`)]);
+    list = site.homeRail.pages.map((k) => site.nav.find((n) => n.key === k));
+  }
+  const sep = isHome ? '<span class="rail-sep" aria-hidden="true"></span>' : '';
+  const items = [...lead.map((l) => l[0]), sep, ...list.map((n) => link(n, `<span class="rail-tip">${n.label}</span>`))].filter(Boolean).join('\n    ');
+  const sheet = [...lead.map((l) => l[1]), ...list.map((n) => link(n, `<span class="rail-sheet-label">${n.label}</span>`))].join('\n      ');
   return `<nav class="rail" aria-label="Site">
   <span class="rail-glow-wrap" aria-hidden="true"><span class="rail-glow"></span></span>
     ${items}
@@ -160,8 +171,10 @@ for (const { meta, body, extraCtx } of pages) {
       ogImage: abs(og.src), ogImageW: og.w, ogImageH: og.h,
       htmlClass: meta.paged ? 'page-home' : 'page-inner',
       paged: meta.paged ? ' data-paged' : '',
+      // tarjetas de servicio: en el home el click expande (como la 1ª versión); en /servicios navega
+      svcLinks: meta.paged ? 'false' : 'true',
     },
-    rail: railHtml(meta.nav),
+    rail: railHtml(meta.nav, !!meta.paged),
   };
   ctx.content = render(body, ctx);
   const html = render(layout, ctx);

@@ -74,14 +74,34 @@
      (clase .is-active). Acá: resplandor detrás del ícono activo y el
      menú "más" de la barra inferior en mobile.
      ------------------------------------------------------------------- */
+  const docEl0 = document.documentElement;
   const rail = $('.rail');
+  const placeGlow = () => {
+    const a = rail && $('.rail > .rail-link.is-active', rail);
+    if (a) rail.style.setProperty('--gy', `${a.offsetTop + a.offsetHeight / 2}px`);
+  };
+  // Home: el rail sigue la sección visible (como en la primera versión)
+  function setRail(id) {
+    if (!rail) return;
+    const hits = $$(`.rail-link[data-target="${id}"]`, rail);
+    if (!hits.length) return;                       // p. ej. el footer: queda la última
+    $$('.rail-link[data-target]', rail).forEach((a) => {
+      const on = a.dataset.target === id;
+      a.classList.toggle('is-active', on);
+      if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+    placeGlow();
+  }
   if (rail) {
-    const placeGlow = () => {
-      const a = $('.rail > .rail-link.is-active', rail);
-      if (a) rail.style.setProperty('--gy', `${a.offsetTop + a.offsetHeight / 2}px`);
-    };
     placeGlow();
     addEventListener('resize', placeGlow);
+    // sin modo vistas (mobile): la sección activa se detecta al scrollear
+    if ($('.rail-link[data-target]', rail) && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting && !docEl0.classList.contains('paged')) setRail(e.target.id); });
+      }, { rootMargin: '-45% 0px -45% 0px' });
+      $$('main > section[id]').forEach((s) => io.observe(s));
+    }
 
     const more = $('.rail-more', rail);
     const sheet = $('.rail-sheet', rail);
@@ -124,7 +144,9 @@
         if (canHover() && !lock.on()) setSvc(key);
       });
       card.addEventListener('click', (e) => {
-        const isLink = card.tagName === 'A';
+        // en el home (data-links="false") el click expande, como en la 1ª versión
+        const isLink = card.tagName === 'A' && svcRow.dataset.links === 'true';
+        if (card.tagName === 'A' && !isLink) e.preventDefault();
         if (canHover()) { if (!isLink) setSvc(key); return; }
         if (isLink && current === key) return;         // segundo tap: navega
         if (isLink) e.preventDefault();
@@ -308,6 +330,7 @@
     // la última vista (footer) es más corta: se alinea al final de la página
     const y = Math.max(0, Math.min(views[page].offsetTop, mainEl.offsetHeight - innerHeight));
     mainEl.style.setProperty('--page-y', y);
+    setRail(views[page].id);
   }
   // se libera cuando terminó la transición y el gesto dejó de mandar eventos
   // (el trackpad sigue emitiendo por inercia: así un gesto no salta dos vistas)

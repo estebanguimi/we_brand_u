@@ -4,20 +4,47 @@
     "key": "brand",
     "name": "Branding &amp; Marketing",
     "titleHtml": "Branding &amp;<br>Marketing",
-    "description": "Branding & Marketing by We Brand U: one of our three services to solve your business challenges with strategy, creativity, and technology."
+    "description": "Visual identity and digital strategy: what your brand says, how it looks and how it shows up on every channel.",
+    "lead": "What your brand says, how it looks, and how it shows up on every channel.",
+    "solvesTitle": "You look improvised",
+    "solves": "Your company works at a high level. Your brand doesn’t show it. Partners judge what they see first.",
+    "included": [
+      { "t": "Visual identity", "d": "How your brand looks, and the rules to keep it consistent." },
+      { "t": "Graphic pieces", "d": "The designs and templates your channels run on." },
+      { "t": "Content strategy", "d": "What you say, to whom, and on which channel." },
+      { "t": "Social media", "d": "Your channels, set up and running on a calendar." },
+      { "t": "Paid media", "d": "Campaigns that put your message in front of the right people." }
+    ]
   },
   {
     "slug": "tech-automation",
     "key": "tech",
     "name": "Tech &amp; Automation",
     "titleHtml": "Tech &amp;<br>Automation",
-    "description": "Tech & Automation by We Brand U: one of our three services to solve your business challenges with strategy, creativity, and technology."
+    "description": "Websites, landing pages, online stores and automated workflows that cut manual work, with AI in production.",
+    "lead": "Websites, stores and automated workflows that take manual work off your team.",
+    "solvesTitle": "Hours lost to busywork",
+    "solves": "Your team spends hours on tasks a well-built tool does on its own. That time belongs to the work only people can do.",
+    "included": [
+      { "t": "Websites and landing pages", "d": "Built to load fast and convert." },
+      { "t": "Online stores", "d": "Set up, connected and ready to sell." },
+      { "t": "Automated workflows", "d": "Repetitive manual steps, handled by the system." },
+      { "t": "AI in production", "d": "Assisted generation, automated pipelines and our own scripts. Shorter delivery times, same quality." }
+    ]
   },
   {
     "slug": "business-growth",
     "key": "growth",
     "name": "Business Growth &amp; Optimization",
     "titleHtml": "Business Growth<br>&amp; Optimization",
-    "description": "Business Growth & Optimization by We Brand U: one of our three services to solve your business challenges with strategy, creativity, and technology."
+    "description": "Measured growth: process analysis, KPIs and strategies to scale what actually moves the number.",
+    "lead": "Measured growth. Find what moves the number, then repeat it.",
+    "solvesTitle": "Busy, but is it working",
+    "solves": "You post a lot. You can’t tell if any of it brings in business. More posts won’t fix that.",
+    "included": [
+      { "t": "Process analysis", "d": "Where time and money go today." },
+      { "t": "KPIs", "d": "The few numbers that tell you if it’s working." },
+      { "t": "Growth strategy", "d": "Plans to scale what already works." }
+    ]
   }
 ]
