@@ -8,7 +8,7 @@
           con más de un artículo, el cuerpo pasa a un archivo por artículo.
      El cuerpo usa el escalón de 20 px (--fs-ui), misma familia y peso.
      ============================================================ -->
-<section class="block">
+<section class="block" data-label="Overview" data-icon="p-blog">
   <div class="slab slab--flow page-hero page-hero--text">
     {{> orbits-page}}
     <div class="page-hero-text">
@@ -19,7 +19,7 @@
   </div>
 </section>
 
-<article class="block block--prose">
+<article class="block block--prose" data-label="Read" data-icon="s-article">
   <div class="prose">
     <div class="slot" data-slot="{{item.slug}}-portada"></div>
     <p class="pending">[FALTA CONTENIDO: párrafo de apertura]</p>

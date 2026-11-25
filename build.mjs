@@ -82,37 +82,35 @@ function parsePage(file) {
 }
 
 /* ---------- navegación (rail + footer) ---------- */
-function railHtml(active, isHome = false) {
+function railHtml(active) {
+  // Menú principal: SIEMPRE las páginas del sitio, en el mismo orden.
+  // El menú de secciones (.subrail) lo arma js/main.js con los bloques de
+  // cada página (data-label + data-icon).
   const link = (n, extra = '') => {
     const on = n.key === active;
     return `<a href="{{base}}${n.path}" class="rail-link${on ? ' is-active' : ''}"`
       + ` data-nav="${n.key}"${n.primary ? ' data-primary' : ''}`
       + `${on ? ' aria-current="page"' : ''} aria-label="${n.label}">`
-      + `<svg viewBox="${n.viewBox || '0 0 24 24'}" class="rail-ico${n.key === 'home' ? ' rail-ico--u' : ''}" aria-hidden="true">${n.icon}</svg>`
+      + `<svg viewBox="0 0 24 24" class="rail-ico" aria-hidden="true">${n.icon}</svg>`
       + `${extra}</a>`;
   };
-  let list = site.nav;
-  let lead = [];
-  if (isHome) {
-    // home: las secciones del home (con el brillo que las sigue) + páginas del sitio
-    const sec = (s, i, extra) => `<a href="#${s.target}" class="rail-link${i === 0 ? ' is-active' : ''}"`
-      + ` data-target="${s.target}"${s.primary ? ' data-primary' : ''} aria-label="${s.label}">`
-      + `<svg viewBox="${s.viewBox || '0 0 24 24'}" class="rail-ico${i === 0 ? ' rail-ico--u' : ''}" aria-hidden="true">${s.icon}</svg>${extra}</a>`;
-    lead = site.homeRail.sections.map((s, i) => [sec(s, i, `<span class="rail-tip">${s.label}</span>`), sec(s, i, `<span class="rail-sheet-label">${s.label}</span>`)]);
-    list = site.homeRail.pages.map((k) => site.nav.find((n) => n.key === k));
-  }
-  const sep = isHome ? '<span class="rail-sep" aria-hidden="true"></span>' : '';
-  const items = [...lead.map((l) => l[0]), sep, ...list.map((n) => link(n, `<span class="rail-tip">${n.label}</span>`))].filter(Boolean).join('\n    ');
-  const sheet = [...lead.map((l) => l[1]), ...list.map((n) => link(n, `<span class="rail-sheet-label">${n.label}</span>`))].join('\n      ');
+  const items = site.nav.map((n) => link(n, `<span class="rail-label">${n.label}</span>`)).join('\n    ');
+  const sheet = site.nav.map((n) => link(n, `<span class="rail-sheet-label">${n.label}</span>`)).join('\n      ');
   return `<nav class="rail" aria-label="Site">
-  <span class="rail-glow-wrap" aria-hidden="true"><span class="rail-glow"></span></span>
     ${items}
-  <button type="button" class="rail-more" aria-expanded="false" aria-controls="rail-sheet" aria-label="More pages">
+  <button type="button" class="rail-more" aria-expanded="false" aria-controls="rail-sheet" aria-label="Menu">
     <svg viewBox="0 0 24 24" class="rail-ico" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    <span class="rail-label">Menu</span>
   </button>
   <div class="rail-sheet" id="rail-sheet" hidden>
+    <p class="rail-sheet-head">Pages</p>
+    <div class="rail-sheet-grid">
       ${sheet}
+    </div>
   </div>
+</nav>
+<nav class="subrail" aria-label="On this page" hidden>
+  <span class="rail-glow-wrap" aria-hidden="true"><span class="rail-glow"></span></span>
 </nav>`;
 }
 
@@ -174,7 +172,7 @@ for (const { meta, body, extraCtx } of pages) {
       // tarjetas de servicio: en el home el click expande (como la 1ª versión); en /servicios navega
       svcLinks: meta.paged ? 'false' : 'true',
     },
-    rail: railHtml(meta.nav, !!meta.paged),
+    rail: railHtml(meta.nav),
   };
   ctx.content = render(body, ctx);
   const html = render(layout, ctx);

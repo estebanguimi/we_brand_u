@@ -4,7 +4,7 @@
      /trabajo — grilla preparada para N casos. Cada elemento de
      src/data/caso.json genera una tarjeta y su página.
      ============================================================ -->
-<section class="block">
+<section class="block" data-label="Our Work" data-icon="p-trabajo">
   <div class="slab slab--flow page-hero page-hero--text">
     {{> orbits-page}}
     <div class="page-hero-text">
@@ -14,7 +14,7 @@
   </div>
 </section>
 
-<section class="block">
+<section class="block" data-label="Cases" data-icon="s-pieces">
   <div class="slab slab--flow">
     <div class="cards" style="--cols: 3">
       {{#each data.caso}}

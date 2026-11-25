@@ -70,46 +70,81 @@
   });
 
   /* -------------------------------------------------------------------
-     Rail: navegación del sitio. La página activa la marca build.mjs
-     (clase .is-active). Acá: resplandor detrás del ícono activo y el
-     menú "más" de la barra inferior en mobile.
+     Navegación en dos niveles
+     · .rail     menú principal (páginas). La página activa la marca build.mjs.
+     · .subrail  menú de secciones: se arma con los bloques de <main> que
+                 tienen data-label + data-icon. El brillo sigue a la vista.
+     En mobile: barra inferior + "Menu" con páginas y secciones.
      ------------------------------------------------------------------- */
   const docEl0 = document.documentElement;
   const rail = $('.rail');
+  const subrail = $('.subrail');
+  const sectionViews = $$('main > [data-label]');
+  const slug = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const used = new Set($$('[id]').map((el) => el.id));
+  sectionViews.forEach((v) => {                         // cada sección necesita un id para su ancla
+    if (v.id) return;
+    let id = slug(v.dataset.label) || 'section';
+    while (used.has(id)) id += '-2';
+    used.add(id);
+    v.id = id;
+  });
+  const sectionLink = (v, extra) => `<a href="#${v.id}" class="rail-link" data-target="${v.id}" aria-label="${v.dataset.label}">`
+    + `<svg viewBox="0 0 24 24" class="rail-ico" aria-hidden="true"><use href="#${v.dataset.icon}"/></svg>${extra}</a>`;
+
   const placeGlow = () => {
-    const a = rail && $('.rail > .rail-link.is-active', rail);
-    if (a) rail.style.setProperty('--gy', `${a.offsetTop + a.offsetHeight / 2}px`);
+    const a = subrail && $('.rail-link.is-active', subrail);
+    if (a) subrail.style.setProperty('--gy', `${a.offsetTop + a.offsetHeight / 2}px`);
   };
-  // Home: el rail sigue la sección visible (como en la primera versión)
+  // la sección visible se marca en el menú de secciones (y en el "Menu" mobile)
   function setRail(id) {
-    if (!rail) return;
-    const hits = $$(`.rail-link[data-target="${id}"]`, rail);
-    if (!hits.length) return;                       // p. ej. el footer: queda la última
-    $$('.rail-link[data-target]', rail).forEach((a) => {
+    const hits = $$(`.rail-link[data-target="${id}"]`);
+    if (!hits.length) return;                           // p. ej. el footer: queda la última
+    $$('.rail-link[data-target]').forEach((a) => {
       const on = a.dataset.target === id;
       a.classList.toggle('is-active', on);
       if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
     });
     placeGlow();
   }
-  if (rail) {
-    placeGlow();
+
+  if (subrail && sectionViews.length >= 2) {
+    subrail.insertAdjacentHTML('beforeend', sectionViews.map((v) => sectionLink(v, `<span class="rail-tip">${v.dataset.label}</span>`)).join(''));
+    subrail.hidden = false;
+    // el principal se compacta y el de secciones entra deslizándose
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      docEl0.classList.add('has-subrail');
+      subrail.classList.add('is-in');
+    }));
+    setRail(sectionViews[0].id);
     addEventListener('resize', placeGlow);
     // sin modo vistas (mobile): la sección activa se detecta al scrollear
-    if ($('.rail-link[data-target]', rail) && 'IntersectionObserver' in window) {
+    if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
         entries.forEach((e) => { if (e.isIntersecting && !docEl0.classList.contains('paged')) setRail(e.target.id); });
       }, { rootMargin: '-45% 0px -45% 0px' });
-      $$('main > section[id]').forEach((s) => io.observe(s));
+      sectionViews.forEach((s) => io.observe(s));
     }
+  }
+
+  if (rail) {
+    // al elegir una página, su ícono queda seleccionado (fondo sólido) mientras carga
+    $$('.rail > .rail-link').forEach((a) => a.addEventListener('click', () => {
+      $$('.rail > .rail-link').forEach((b) => b.classList.toggle('is-active', b === a));
+    }));
 
     const more = $('.rail-more', rail);
     const sheet = $('.rail-sheet', rail);
+    if (sectionViews.length >= 2) {                     // "Menu" mobile: también las secciones
+      sheet.insertAdjacentHTML('beforeend', '<p class="rail-sheet-head">On this page</p><div class="rail-sheet-grid">'
+        + sectionViews.map((v) => sectionLink(v, `<span class="rail-sheet-label">${v.dataset.label}</span>`)).join('') + '</div>');
+    }
     const setSheet = (open) => {
       sheet.hidden = !open;
       more.setAttribute('aria-expanded', String(open));
     };
     more.addEventListener('click', () => setSheet(sheet.hidden));
+    sheet.addEventListener('click', (e) => { if (e.target.closest('a')) setSheet(false); });
     document.addEventListener('click', (e) => { if (!sheet.hidden && !rail.contains(e.target)) setSheet(false); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !sheet.hidden) { setSheet(false); more.focus(); } });
   }

@@ -4,7 +4,7 @@
      /blog — listado. Cada elemento de src/data/post.json es una
      fila y una página.
      ============================================================ -->
-<section class="block">
+<section class="block" data-label="Blog" data-icon="p-blog">
   <div class="slab slab--flow page-hero page-hero--text">
     {{> orbits-page}}
     <div class="page-hero-text">
@@ -14,7 +14,7 @@
   </div>
 </section>
 
-<section class="block">
+<section class="block" data-label="Articles" data-icon="s-list">
   <div class="slab slab--flow">
     <ul class="post-list">
       {{#each data.post}}
