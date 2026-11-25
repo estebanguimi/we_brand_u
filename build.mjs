@@ -55,7 +55,8 @@ function render(tpl, ctx) {
   let out = tpl;
   for (let pass = 0; pass < 8; pass++) {
     const before = out;
-    out = out.replace(/\{\{#each\s+([\w.-]+)\s*\}\}([\s\S]*?)\{\{\/each\}\}/g, (m, key, inner) => {
+    // {{#each}} y {{#each2}} (para anidar uno dentro del otro)
+    out = out.replace(/\{\{#(each2?)\s+([\w.-]+)\s*\}\}([\s\S]*?)\{\{\/\1\}\}/g, (m, tag, key, inner) => {
       const list = lookup(ctx, key);
       if (!Array.isArray(list)) throw new Error(`#each sin lista: ${key}`);
       return list.map((it) => render(inner, { ...ctx, it })).join('');
@@ -157,6 +158,14 @@ const written = [];
 for (const { meta, body, extraCtx } of pages) {
   const depth = meta.path ? meta.path.split('/').filter(Boolean).length : 0;
   const base = '../'.repeat(depth);
+  if (meta.redirect) {                               // dirección vieja: redirige y no entra al sitemap
+    const to = meta.redirect.replace('BASE:', base);
+    fs.mkdirSync(path.join(ROOT, meta.path), { recursive: true });
+    fs.writeFileSync(path.join(ROOT, meta.path, 'index.html'),
+      `<!doctype html><meta charset="utf-8"><title>${site.name}</title><link rel="canonical" href="${abs(meta.redirect.replace('BASE:', ''))}">`
+      + `<meta http-equiv="refresh" content="0; url=${to}"><script>location.replace(${JSON.stringify(to)})</script>`);
+    continue;
+  }
   const og = ogImage();
   const ctx = {
     ...extraCtx,
@@ -171,6 +180,8 @@ for (const { meta, body, extraCtx } of pages) {
       paged: meta.paged ? ' data-paged' : '',
       // tarjetas de servicio: en el home el click expande (como la 1ª versión); en /servicios navega
       svcLinks: meta.paged ? 'false' : 'true',
+      // en /servicios las tarjetas bajan a su sección; desde otras páginas llevan a /servicios/#slug
+      svcHref: meta.path === 'servicios/' ? '#' : `${base}servicios/#`,
     },
     rail: railHtml(meta.nav),
   };

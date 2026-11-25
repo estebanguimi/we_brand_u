@@ -1288,6 +1288,8 @@ a.work--grid:hover, a.work--grid:focus-visible { border-color: var(--line-strong
 /* --- Contacto: sliders de la evaluación bajo el título ----------------- */
 .contact-art { max-width: 30cqw; margin-top: var(--sp-3); }
 
+.svc-problem { margin-top: var(--sp-2); max-width: 40cqw; gap: var(--sp-1); }
+
 /* --- Footer ------------------------------------------------------------- */
 .site-footer {
   position: relative;

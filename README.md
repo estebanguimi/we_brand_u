@@ -46,8 +46,7 @@ Abrir http://localhost:8000.
 | Ruta | Estado |
 |---|---|
 | `/` | Home |
-| `/servicios/` | Hub |
-| `/servicios/branding-marketing/`, `/tech-automation/`, `/business-growth/` | Plantilla única (`src/templates/servicio.html`) |
+| `/servicios/` | Los tres servicios en una sola página (datos en `src/data/servicio.json`). Las direcciones viejas `/servicios/<servicio>/` redirigen a su sección |
 | `/programa/` | El programa de 3 meses |
 | `/contacto/` | Evaluación gratuita en 4 pasos |
 | `/trabajo/` | Grilla de casos (un elemento por caso en `src/data/caso.json`) |

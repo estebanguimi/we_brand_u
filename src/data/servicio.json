@@ -39,7 +39,10 @@
         "i": "s-audience",
         "n": "05"
       }
-    ]
+    ],
+    "num": "01",
+    "icon": "p-servicios",
+    "short": "Branding"
   },
   {
     "slug": "tech-automation",
@@ -75,7 +78,10 @@
         "i": "s-pods",
         "n": "04"
       }
-    ]
+    ],
+    "num": "02",
+    "icon": "s-pods",
+    "short": "Tech"
   },
   {
     "slug": "business-growth",
@@ -105,6 +111,9 @@
         "i": "s-idea",
         "n": "03"
       }
-    ]
+    ],
+    "num": "03",
+    "icon": "s-track",
+    "short": "Growth"
   }
 ]

@@ -5,12 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Services — We Brand U</title>
-  <meta name="description" content="Branding & Marketing, Tech & Automation and Business Growth & Optimization: the three We Brand U services to solve your business challenges with strategy, creativity, and technology.">
+  <meta name="description" content="Branding & Marketing, Tech & Automation and Business Growth & Optimization: three services, one page. Built, run, and handed over to your team.">
   <link rel="canonical" href="https://estebanguimi.github.io/we_brand_u/servicios/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="We Brand U">
   <meta property="og:title" content="Services — We Brand U">
-  <meta property="og:description" content="Branding & Marketing, Tech & Automation and Business Growth & Optimization: the three We Brand U services to solve your business challenges with strategy, creativity, and technology.">
+  <meta property="og:description" content="Branding & Marketing, Tech & Automation and Business Growth & Optimization: three services, one page. Built, run, and handed over to your team.">
   <meta property="og:url" content="https://estebanguimi.github.io/we_brand_u/servicios/">
   <meta property="og:image" content="https://estebanguimi.github.io/we_brand_u/img/placeholders/og-default.png">
   <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,600;1,900&display=swap">
-  <link rel="stylesheet" href="../css/styles.css?v=62050e15">
+  <link rel="stylesheet" href="../css/styles.css?v=3a3e5902">
   <script>document.documentElement.classList.add('js'); window.WBU_BASE = '../';</script>
 </head>
 <body>
@@ -127,8 +127,9 @@
 <main>
 
 <!-- ============================================================
-     /servicios — Hub. Mismo componente e interacción que el home:
-     la tarjeta se expande (hover / tap) y lleva a su página.
+     /servicios — UNA sola página con los tres servicios.
+     Arriba, las tarjetas del home (bajan a la sección de cada uno).
+     Cada servicio sale de src/data/servicio.json.
      ============================================================ -->
 <section class="block" data-label="Services" data-icon="p-servicios">
   <div class="slab slab--services slab--frame">
@@ -138,7 +139,7 @@
     <div class="svc-row" data-active="none" data-links="true">
 
       <!-- Branding & Marketing -->
-      <a href="../servicios/branding-marketing/" class="svc svc--brand" data-key="brand" aria-expanded="false">
+      <a href="#branding-marketing" class="svc svc--brand" data-key="brand" aria-expanded="false">
         <span class="svc-art" aria-hidden="true">
           <svg viewBox="0 0 400 260" class="ill ill-brand">
             <circle cx="200" cy="125" r="110" fill="url(#g-glow)" opacity=".55"/>
@@ -199,7 +200,7 @@
       </a>
 
       <!-- Tech & Automation -->
-      <a href="../servicios/tech-automation/" class="svc svc--tech" data-key="tech" aria-expanded="false">
+      <a href="#tech-automation" class="svc svc--tech" data-key="tech" aria-expanded="false">
         <span class="svc-art" aria-hidden="true">
           <svg viewBox="0 0 400 260" class="ill ill-tech">
             <g class="grid">
@@ -242,7 +243,7 @@
       </a>
 
       <!-- Business Growth & Optimization -->
-      <a href="../servicios/business-growth/" class="svc svc--growth" data-key="growth" aria-expanded="false">
+      <a href="#business-growth" class="svc svc--growth" data-key="growth" aria-expanded="false">
         <span class="svc-art" aria-hidden="true">
           <svg viewBox="0 0 400 260" class="ill ill-growth">
             <g class="cols">
@@ -270,6 +271,365 @@
   </div>
 </section>
 
+
+<!-- ---------- Branding &amp; Marketing ---------- -->
+<section class="block" id="branding-marketing" data-label="Branding &amp; Marketing" data-icon="p-servicios">
+  <div class="slab slab--flow page-hero">
+    <!-- Arcos orbitales de las páginas internas (mismo motivo y rotación que el home) -->
+    <svg class="orbits" viewBox="0 0 1240 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <circle cx="930" cy="350" r="220" fill="url(#g-glow)" opacity=".35"/>
+      <g class="spin spin--slow" style="transform-origin:930px 350px">
+        <circle cx="930" cy="350" r="260" class="arc" stroke-dasharray="1000 634"/>
+      </g>
+      <g class="spin spin--slower spin--rev" style="transform-origin:930px 350px">
+        <circle cx="930" cy="350" r="430" class="arc" stroke-dasharray="1600 1102"/>
+      </g>
+      <g class="spin spin--slowest" style="transform-origin:930px 350px">
+        <circle cx="930" cy="350" r="640" class="arc" stroke-dasharray="1500 2521"/>
+      </g>
+    </svg>
+
+    <div class="page-hero-text">
+      <span class="k">Service 01 / 03</span>
+      <h2 class="page-title">Branding &amp;<br>Marketing</h2>
+      <p class="lead">What your brand says, how it looks, and how it shows up on every channel.</p>
+      <div class="card card--strong svc-problem">
+        <span class="k">The problem · You look improvised</span>
+        <p class="card-text">Your company works at a high level. Your brand doesn’t show it. Partners judge what they see first.</p>
+      </div>
+    </div>
+    <div class="page-hero-art">
+      <div class="ill-stage" data-play-on-view aria-hidden="true"><svg viewBox="0 0 400 260" class="ill ill-brand">
+            <circle cx="200" cy="125" r="110" fill="url(#g-glow)" opacity=".55"/>
+            <circle cx="200" cy="125" r="44" class="ring"/>
+            <circle cx="200" cy="125" r="66" class="ring ring--b"/>
+            <circle cx="200" cy="125" r="90" class="ring ring--c"/>
+            <g class="brand-core brand-core--u">
+              <svg x="175" y="95" width="50" height="60" viewBox="0 0 610 730" class="logo-fill"><use href="#logo-u"/></svg>
+            </g>
+            <g class="brand-core brand-core--text">
+              <text x="200" y="120" text-anchor="middle" class="svg-accent">Your</text>
+              <text x="200" y="140" text-anchor="middle" class="svg-accent">Brand</text>
+            </g>
+            <!-- íconos orbitando -->
+            <g class="orbit-icons">
+              <g class="oi" transform="translate(84 78)"><g class="oi-in"><g transform="scale(1.35)">
+                <circle r="16" class="bubble"/>
+                <rect x="-8" y="-6" width="14" height="10" rx="1.5" class="ico-stroke"/>
+                <path d="M2 0L9 7L5.5 7.4L7.6 10.6L6.2 11.4L4.2 8.2L2 10Z" class="ico-fill"/>
+              </g></g></g>
+              <g class="oi" transform="translate(128 100)"><g class="oi-in"><g transform="scale(1.35)">
+                <circle r="16" class="bubble"/>
+                <rect x="-8" y="-8" width="16" height="16" rx="2.5" class="ico-fill"/>
+                <rect x="-5.4" y="-1.6" width="2.4" height="6.6" class="ico-cut"/>
+                <circle cx="-4.2" cy="-4.4" r="1.4" class="ico-cut"/>
+                <path d="M-1.4 -1.6H0.9V-0.6Q1.6 -1.8 3.2 -1.8Q5.6 -1.8 5.6 1.2V5H3.2V1.6Q3.2 0.2 2.1 0.2Q0.9 0.2 0.9 1.7V5H-1.4Z" class="ico-cut"/>
+              </g></g></g>
+              <g class="oi" transform="translate(262 62)"><g class="oi-in"><g transform="scale(1.35)">
+                <circle r="16" class="bubble"/>
+                <rect x="-8" y="-8" width="16" height="16" rx="4.5" class="ico-stroke"/>
+                <circle r="3.6" class="ico-stroke"/>
+                <circle cx="4.6" cy="-4.6" r="1.1" class="ico-fill"/>
+              </g></g></g>
+              <g class="oi" transform="translate(320 120)"><g class="oi-in"><g transform="scale(1.35)">
+                <circle r="16" class="bubble"/>
+                <path d="M-7 -7.5L7 7.5M7 -7.5L-7 7.5" class="ico-stroke ico-stroke--b"/>
+              </g></g></g>
+              <g class="oi" transform="translate(266 186)"><g class="oi-in"><g transform="scale(1.35)">
+                <circle r="16" class="bubble"/>
+                <circle r="8" class="ico-stroke"/>
+                <circle r="5" class="ico-stroke"/>
+                <circle r="2" class="ico-fill"/>
+              </g></g></g>
+              <g class="oi" transform="translate(112 170)"><g class="oi-in"><g transform="scale(1.35)">
+                <circle r="16" class="bubble"/>
+                <path d="M-8 -2.5H-4L4 -7V7L-4 2.5H-8Z" class="ico-stroke"/>
+                <path d="M-6 2.5L-4.5 7.5" class="ico-stroke"/>
+                <path d="M6.5 -3Q8.6 0 6.5 3" class="ico-stroke"/>
+              </g></g></g>
+            </g>
+          </svg>
+</div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="slab slab--flow">
+    <div class="block-head">
+      <span class="k">Branding &amp; Marketing</span>
+      <h2 class="title">What’s included</h2>
+    </div>
+    <div class="expand-row" data-expand>
+      
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-idea"/></svg><span class="k">01</span></div>
+        <h3 class="card-title">Visual identity</h3>
+        <div class="card-more"><p class="card-text">How your brand looks, and the rules to keep it consistent.</p></div>
+      </article>
+      
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-pieces"/></svg><span class="k">02</span></div>
+        <h3 class="card-title">Graphic pieces</h3>
+        <div class="card-more"><p class="card-text">The designs and templates your channels run on.</p></div>
+      </article>
+      
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-list"/></svg><span class="k">03</span></div>
+        <h3 class="card-title">Content strategy</h3>
+        <div class="card-more"><p class="card-text">What you say, to whom, and on which channel.</p></div>
+      </article>
+      
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#p-blog"/></svg><span class="k">04</span></div>
+        <h3 class="card-title">Social media</h3>
+        <div class="card-more"><p class="card-text">Your channels, set up and running on a calendar.</p></div>
+      </article>
+      
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-audience"/></svg><span class="k">05</span></div>
+        <h3 class="card-title">Paid media</h3>
+        <div class="card-more"><p class="card-text">Campaigns that put your message in front of the right people.</p></div>
+      </article>
+      
+    </div>
+  </div>
+</section>
+
+<!-- ---------- Tech &amp; Automation ---------- -->
+<section class="block" id="tech-automation" data-label="Tech &amp; Automation" data-icon="s-pods">
+  <div class="slab slab--flow page-hero">
+    <!-- Arcos orbitales de las páginas internas (mismo motivo y rotación que el home) -->
+    <svg class="orbits" viewBox="0 0 1240 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <circle cx="930" cy="350" r="220" fill="url(#g-glow)" opacity=".35"/>
+      <g class="spin spin--slow" style="transform-origin:930px 350px">
+        <circle cx="930" cy="350" r="260" class="arc" stroke-dasharray="1000 634"/>
+      </g>
+      <g class="spin spin--slower spin--rev" style="transform-origin:930px 350px">
+        <circle cx="930" cy="350" r="430" class="arc" stroke-dasharray="1600 1102"/>
+      </g>
+      <g class="spin spin--slowest" style="transform-origin:930px 350px">
+        <circle cx="930" cy="350" r="640" class="arc" stroke-dasharray="1500 2521"/>
+      </g>
+    </svg>
+
+    <div class="page-hero-text">
+      <span class="k">Service 02 / 03</span>
+      <h2 class="page-title">Tech &amp;<br>Automation</h2>
+      <p class="lead">Websites, stores and automated workflows that take manual work off your team.</p>
+      <div class="card card--strong svc-problem">
+        <span class="k">The problem · Hours lost to busywork</span>
+        <p class="card-text">Your team spends hours on tasks a well-built tool does on its own. That time belongs to the work only people can do.</p>
+      </div>
+    </div>
+    <div class="page-hero-art">
+      <div class="ill-stage" data-play-on-view aria-hidden="true"><svg viewBox="0 0 400 260" class="ill ill-tech">
+            <g class="grid">
+              <path d="M200 0V250" pathLength="1" class="draw gl"/>
+              <path d="M110 70H330" pathLength="1" class="draw gl" style="--i:1"/>
+              <path d="M140 140H320" pathLength="1" class="draw gl" style="--i:2"/>
+              <path d="M90 180H300" pathLength="1" class="draw gl" style="--i:3"/>
+              <path d="M270 70V230H120" pathLength="1" class="draw gl" style="--i:4"/>
+            </g>
+            <g class="wires">
+              <path d="M120 70L150 140H175Q180 112 200 112Q215 112 222 108Q232 104 240 96L270 70" pathLength="1" class="draw gw" style="--i:2"/>
+              <path d="M150 140Q140 150 140 170V230" pathLength="1" class="draw gw gw--soft" style="--i:3"/>
+              <path d="M270 140L190 250" pathLength="1" class="draw gw" style="--i:4"/>
+              <path d="M200 70V180L270 180" pathLength="1" class="draw gw gw--soft" style="--i:5"/>
+            </g>
+            <g class="nodes">
+              <circle cx="200" cy="70" r="5" class="node" style="--n:0"/>
+              <circle cx="150" cy="140" r="6" class="node" style="--n:1"/>
+              <circle cx="270" cy="140" r="5" class="node" style="--n:2"/>
+              <circle cx="200" cy="180" r="6" class="node" style="--n:3"/>
+              <g class="node node-x" style="--n:4" transform="translate(200 112)">
+                <circle r="11" class="node-x-bg"/>
+                <path d="M-6 -6L6 6M6 -6L-6 6" class="node-x-mark"/>
+              </g>
+            </g>
+            <!-- íconos de apps (solo en estado expandido) -->
+            <g class="apps">
+              <g transform="translate(120 70)"><g class="app" style="--n:5"><circle r="15" class="app-bg"/><text y="5" text-anchor="middle" class="app-glyph">W</text></g></g>
+              <g transform="translate(270 70)"><g class="app" style="--n:6"><circle r="15" class="app-bg"/><path d="M-7 -8H7L5.6 6L0 8.5L-5.6 6Z" class="app-line"/><path d="M-3 -4H3.4L3 1L0 2L-3 1" class="app-line"/></g></g>
+              <g transform="translate(90 180)"><g class="app" style="--n:7"><circle r="15" class="app-bg"/><circle r="8" class="app-line"/><path d="M-3 -3L2 0L-3 3" class="app-line"/></g></g>
+              <g transform="translate(270 180)"><g class="app" style="--n:8"><circle r="15" class="app-bg"/><circle cx="-3.5" cy="-3.5" r="4" class="app-line"/><circle cx="3.5" cy="-3.5" r="4" class="app-line"/><circle cx="-3.5" cy="3.5" r="4" class="app-line"/><circle cx="3.5" cy="3.5" r="4" class="app-line"/></g></g>
+            </g>
+          </svg>
+</div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="slab slab--flow">
+    <div class="block-head">
+      <span class="k">Tech &amp; Automation</span>
+      <h2 class="title">What’s included</h2>
+    </div>
+    <div class="expand-row" data-expand>
+      
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-article"/></svg><span class="k">01</span></div>
+        <h3 class="card-title">Websites and landing pages</h3>
+        <div class="card-more"><p class="card-text">Built to load fast and convert.</p></div>
+      </article>
+      
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-pricing"/></svg><span class="k">02</span></div>
+        <h3 class="card-title">Online stores</h3>
+        <div class="card-more"><p class="card-text">Set up, connected and ready to sell.</p></div>
+      </article>
+      
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-after"/></svg><span class="k">03</span></div>
+        <h3 class="card-title">Automated workflows</h3>
+        <div class="card-more"><p class="card-text">Repetitive manual steps, handled by the system.</p></div>
+      </article>
+      
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-pods"/></svg><span class="k">04</span></div>
+        <h3 class="card-title">AI in production</h3>
+        <div class="card-more"><p class="card-text">Assisted generation, automated pipelines and our own scripts. Shorter delivery times, same quality.</p></div>
+      </article>
+      
+    </div>
+  </div>
+</section>
+
+<!-- ---------- Business Growth &amp; Optimization ---------- -->
+<section class="block" id="business-growth" data-label="Business Growth &amp; Optimization" data-icon="s-track">
+  <div class="slab slab--flow page-hero">
+    <!-- Arcos orbitales de las páginas internas (mismo motivo y rotación que el home) -->
+    <svg class="orbits" viewBox="0 0 1240 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <circle cx="930" cy="350" r="220" fill="url(#g-glow)" opacity=".35"/>
+      <g class="spin spin--slow" style="transform-origin:930px 350px">
+        <circle cx="930" cy="350" r="260" class="arc" stroke-dasharray="1000 634"/>
+      </g>
+      <g class="spin spin--slower spin--rev" style="transform-origin:930px 350px">
+        <circle cx="930" cy="350" r="430" class="arc" stroke-dasharray="1600 1102"/>
+      </g>
+      <g class="spin spin--slowest" style="transform-origin:930px 350px">
+        <circle cx="930" cy="350" r="640" class="arc" stroke-dasharray="1500 2521"/>
+      </g>
+    </svg>
+
+    <div class="page-hero-text">
+      <span class="k">Service 03 / 03</span>
+      <h2 class="page-title">Business Growth<br>&amp; Optimization</h2>
+      <p class="lead">Measured growth. Find what moves the number, then repeat it.</p>
+      <div class="card card--strong svc-problem">
+        <span class="k">The problem · Busy, but is it working</span>
+        <p class="card-text">You post a lot. You can’t tell if any of it brings in business. More posts won’t fix that.</p>
+      </div>
+    </div>
+    <div class="page-hero-art">
+      <div class="ill-stage" data-play-on-view aria-hidden="true"><svg viewBox="0 0 400 260" class="ill ill-growth">
+            <g class="cols">
+              <path d="M70 20V200M110 20V200M150 20V200M190 20V200M230 20V200M270 20V200M310 20V200M350 20V200"/>
+            </g>
+            <path d="M40 200V20" class="axis"/>
+            <g class="ticks">
+              <rect x="88" y="214" width="4" height="8" rx="1"/><rect x="128" y="214" width="4" height="8" rx="1"/>
+              <rect x="168" y="214" width="4" height="8" rx="1"/><rect x="208" y="214" width="4" height="8" rx="1"/>
+              <rect x="248" y="214" width="4" height="8" rx="1"/><rect x="288" y="214" width="4" height="8" rx="1"/>
+              <rect x="328" y="214" width="4" height="8" rx="1"/>
+            </g>
+            <path d="M44 120C70 104 88 112 110 132C136 154 156 150 178 112C198 76 222 74 240 92C258 110 272 124 296 88C318 50 334 30 352 46C362 56 370 66 378 76" pathLength="1" class="draw curve"/>
+          </svg>
+</div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="slab slab--flow">
+    <div class="block-head">
+      <span class="k">Business Growth &amp; Optimization</span>
+      <h2 class="title">What’s included</h2>
+    </div>
+    <div class="expand-row" data-expand>
+      
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-after"/></svg><span class="k">01</span></div>
+        <h3 class="card-title">Process analysis</h3>
+        <div class="card-more"><p class="card-text">Where time and money go today.</p></div>
+      </article>
+      
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-track"/></svg><span class="k">02</span></div>
+        <h3 class="card-title">KPIs</h3>
+        <div class="card-more"><p class="card-text">The few numbers that tell you if it’s working.</p></div>
+      </article>
+      
+      <article class="card expand-card" tabindex="0">
+        <div class="expand-top"><svg viewBox="0 0 24 24" class="expand-ico" aria-hidden="true"><use href="#s-idea"/></svg><span class="k">03</span></div>
+        <h3 class="card-title">Growth strategy</h3>
+        <div class="card-more"><p class="card-text">Plans to scale what already works.</p></div>
+      </article>
+      
+    </div>
+  </div>
+</section>
+
+
+<!-- Cómo trabajamos: igual para los tres servicios -->
+<section class="block" data-label="How we work" data-icon="p-programa">
+  <div class="slab slab--flow">
+    <div class="block-head">
+      <h2 class="title">How we work</h2>
+      <p class="lead">Same logic for every service: build it, prove it, hand it over.</p>
+    </div>
+    <div class="timeline" style="--n: 4">
+      <div class="timeline-track" aria-hidden="true">
+        <svg viewBox="0 0 1000 120" preserveAspectRatio="none">
+          <path d="M0 100Q500 -60 1000 100" class="timeline-path timeline-path--ghost"/>
+          <path d="M0 100Q500 -60 1000 100" pathLength="1" class="timeline-path draw"/>
+        </svg>
+        <span class="timeline-node" style="--x: 12.5%; --y: 54.2%; --n-i: 1"></span>
+        <span class="timeline-node" style="--x: 37.5%; --y: 20.8%; --n-i: 2"></span>
+        <span class="timeline-node" style="--x: 62.5%; --y: 20.8%; --n-i: 3"></span>
+        <span class="timeline-node" style="--x: 87.5%; --y: 54.2%; --n-i: 4"></span>
+      </div>
+      <ol class="timeline-steps" role="list">
+        <li class="card"><span class="k">Step 1</span><h3 class="card-title">Audit</h3><p class="card-text">We review what you have today.</p></li>
+        <li class="card"><span class="k">Step 2</span><h3 class="card-title">Build</h3><p class="card-text">We define the system and set it up.</p></li>
+        <li class="card"><span class="k">Step 3</span><h3 class="card-title">Operate</h3><p class="card-text">We run it at full volume, measure and adjust.</p></li>
+        <li class="card"><span class="k">Step 4</span><h3 class="card-title">Hand over</h3><p class="card-text">We document it and train your team to run it.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Para quién es y para quién no -->
+<section class="block" data-label="Who it’s for" data-icon="s-audience">
+  <div class="slab slab--flow">
+    <div class="block-head">
+      <h2 class="title">Who it’s for</h2>
+      <p class="lead">Your team takes part. That’s how it stays yours.</p>
+    </div>
+    <div class="switch" data-switch role="tablist" aria-label="Who it’s for">
+      <button type="button" class="pill is-on" role="tab" aria-selected="true" data-to="0">It’s a fit</button>
+      <button type="button" class="pill" role="tab" aria-selected="false" data-to="1">It’s not a fit</button>
+    </div>
+    <div class="switch-panels" data-switch-panels>
+      <article class="card card--strong switch-panel is-on" role="tabpanel">
+        <h3 class="card-title">It’s a fit if</h3>
+        <ul class="card-list">
+          <li>You’re a mid-sized company that already makes revenue.</li>
+          <li>Your digital presence doesn’t match how you operate.</li>
+          <li>You want your own team to run it afterwards.</li>
+        </ul>
+      </article>
+      <article class="card switch-panel" role="tabpanel">
+        <h3 class="card-title">It’s not a fit if</h3>
+        <ul class="card-list">
+          <li>You’re looking for the cheapest provider.</li>
+          <li>You want to delegate and stay out of it.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
 
 <!-- CTA de cierre (todas las páginas internas): siempre lleva a /contacto -->
 <section class="block" data-label="Let’s Make It Real" data-icon="p-contacto">
@@ -324,9 +684,9 @@
     </nav>
     <nav class="footer-col" aria-label="Services">
       <p class="footer-head">Services</p>
-      <a href="../servicios/branding-marketing/">Branding &amp; Marketing</a>
-      <a href="../servicios/tech-automation/">Tech &amp; Automation</a>
-      <a href="../servicios/business-growth/">Business Growth &amp; Optimization</a>
+      <a href="../servicios/#branding-marketing">Branding &amp; Marketing</a>
+      <a href="../servicios/#tech-automation">Tech &amp; Automation</a>
+      <a href="../servicios/#business-growth">Business Growth &amp; Optimization</a>
     </nav>
     <div class="footer-col">
       <p class="footer-head">Contact</p>
@@ -347,7 +707,7 @@
 
 </main>
 
-<script src="../js/imagenes.js?v=62050e15"></script>
-<script src="../js/main.js?v=62050e15"></script>
+<script src="../js/imagenes.js?v=3a3e5902"></script>
+<script src="../js/main.js?v=3a3e5902"></script>
 </body>
 </html>
