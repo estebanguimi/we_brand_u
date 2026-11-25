@@ -79,7 +79,9 @@
   const docEl0 = document.documentElement;
   const rail = $('.rail');
   const subrail = $('.subrail');
-  const sectionViews = $$('main > [data-label]');
+  // El home (landing) tiene un solo menú: el principal, con todas las páginas.
+  // El menú de secciones existe solo en las páginas internas.
+  const sectionViews = document.body.hasAttribute('data-paged') ? [] : $$('main > [data-label]');
   const slug = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const used = new Set($$('[id]').map((el) => el.id));
   sectionViews.forEach((v) => {                         // cada sección necesita un id para su ancla
@@ -105,12 +107,8 @@
       a.classList.toggle('is-active', on);
       if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
     });
-    showSubrail(!(IS_HOME && id === sectionViews[0].id));
     placeGlow();
   }
-  // Home: en la primera vista (Hero) hay un solo menú, el principal.
-  // Desde la segunda vista, el principal se compacta y entra el de secciones.
-  const IS_HOME = document.body.hasAttribute('data-paged');
   let subrailReady = false;
   function showSubrail(on) {
     if (!subrailReady) return;
@@ -124,8 +122,7 @@
     // el principal se compacta y el de secciones entra deslizándose
     requestAnimationFrame(() => requestAnimationFrame(() => {
       subrailReady = true;
-      const active = $('.rail-link.is-active', subrail);
-      showSubrail(!(IS_HOME && (!active || active.dataset.target === sectionViews[0].id)));
+      showSubrail(true);
     }));
     setRail(sectionViews[0].id);
     addEventListener('resize', placeGlow);
